@@ -11,6 +11,7 @@ import org.jetbrains.annotations.*;
 public class Database {
     private static Stage stage;
     private static ArrayList<User> users;
+    private static User currentUser;
 
     static {
         users = DataManager.loadUsers();
@@ -34,6 +35,14 @@ public class Database {
         users.add(user);
     }
 
+    public static User getCurrentUser() {
+        return currentUser;
+    }
+
+    public static void setCurrentUser(User currentUser) {
+        Database.currentUser = currentUser;
+    }
+
     public static void setStage(Stage stage) {
         Database.stage = stage;
     }
@@ -41,4 +50,6 @@ public class Database {
     public static Stage getStage() {
         return stage;
     }
+
+
 }

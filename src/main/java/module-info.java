@@ -7,4 +7,6 @@ module AA {
     exports view;
     opens view;
     opens model;
+    exports view.login;
+    opens view.login;
 }
