@@ -5,5 +5,6 @@ module AA {
     requires org.jetbrains.annotations;
 
     exports view;
-    opens view to javafx.fxml;
+    opens view;
+    opens model;
 }
