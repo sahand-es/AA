@@ -1,0 +1,34 @@
+.root {
+    -fx-background-color: linear-gradient(rgb(216, 190, 158), rgb(218, 194, 164)),
+    radial-gradient(center 50% 50%, radius 50%, rgba(195, 164, 135, 0.22), rgba(193, 153, 105, 0));
+}
+
+.button {
+    -fx-alignment: center;
+    -fx-background-radius: 9;
+    -fx-background-color: linear-gradient(to left, #6f402a, #c89350);
+}
+
+
+.button:hover {
+    -fx-background-color: linear-gradient(to bottom, rgba(111, 64, 42), #c89350);
+}
+
+.text-field {
+    -fx-border-radius: 9;
+    -fx-border-width: 1;
+    -fx-background-radius: 9;
+    -fx-background-color: radial-gradient(center 80% 80%, radius 50%, rgba(218, 201, 186, 0.74), rgba(211, 201, 189, 0.75));
+    -fx-border-color: rgba(111, 64, 42, 0.7);
+}
+.label1 {
+    -fx-font-family: "Times New Roman", sans-serif;
+    -fx-font-size: 150px;
+}
+
+.label2 {
+    -fx-font-family: "Times New Roman", sans-serif;
+    -fx-font-size: 20;
+}
+
+

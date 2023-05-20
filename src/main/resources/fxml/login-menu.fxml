@@ -1,24 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.stage.Screen?>
+<?import javafx.scene.text.Text?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="view.LoginMenuController"
-            prefHeight="400.0" prefWidth="600.0">
-    <center>
-        <VBox alignment="CENTER">
-            <Label text="welcome!"/>
-            <TextField promptText="username" maxWidth="300"/>
-            <PasswordField promptText="password" maxWidth="300"/>
-            <Button text="submit"/>
-            <Button text="reset"/>
+            stylesheets="@../css/login-menu-style.css"
+                prefWidth="${screen.visualBounds.width}"
+                prefHeight="${screen.visualBounds.height}">
+        <fx:define>
+            <Screen fx:factory="getPrimary" fx:id="screen"/>
+        </fx:define>
+    <left>
+        <VBox>
+            <Label text=" aa" styleClass="label1"/>
+            <Text text="&#10;&#10;" styleClass="label1"/>
+            <Text text="&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;"/>
+            <Button alignment="BOTTOM_LEFT" text="play as guest"/>
         </VBox>
-
+    </left>
+    <right>
+        <VBox>
+            <Label text="   " styleClass="label1"/>
+        </VBox>
+    </right>
+    <center>
+        <VBox alignment="CENTER" spacing="7" maxWidth="350" prefHeight="100">
+            <Label text="welcome!" styleClass="label2"/>
+            <TextField promptText="username" prefHeight="40" fx:id="username"/>
+            <PasswordField promptText="password" prefHeight="40" fx:id="password"/>
+            <HBox alignment="CENTER" spacing="8">
+                <Button text="login" prefHeight="30" prefWidth="75" onMouseClicked="#login"/>
+                <Button text="signup" prefHeight="30" prefWidth="75" onMouseClicked="#signup"/>
+            </HBox>
+        </VBox>
     </center>
 
 </BorderPane>
