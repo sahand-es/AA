@@ -79,6 +79,7 @@
     -fx-text-fill: rgb(216, 190, 158);
 }
 .context-menu{
+    -fx-background-radius: 5;
     -fx-pref-width: 232;
     -fx-background-color: radial-gradient(center 0px 0px, radius 100%, rgba(104, 63, 11, 0.44), rgba(111, 64, 42, 0.44));
 }

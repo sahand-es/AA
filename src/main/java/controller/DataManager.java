@@ -16,6 +16,7 @@ import java.util.List;
 public class DataManager {
     public static String LOGIN_MENU_PATH = "/fxml/login-menu.fxml";
     public static String MAIN_MENU_PATH = "/fxml/main-menu.fxml";
+    public static String GAME_MENU_PATH = "/fxml/game-menu.fxml";
     public static String USERS_DATABASE_PATH = "src/main/resources/json/users.json";
 
     public static ArrayList<User> loadUsers() {

@@ -4,6 +4,7 @@ module AA {
     requires com.google.gson;
     requires org.jetbrains.annotations;
 
+    exports model;
     exports view;
     opens view;
     opens model;

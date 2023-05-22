@@ -4,11 +4,15 @@ import controller.DataManager;
 
 import java.util.ArrayList;
 
+import javafx.scene.paint.Color;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.*;
 
 
 public class Database {
+    public static double centerX = Screen.getPrimary().getVisualBounds().getWidth()/2;
+    public static double centerY = Screen.getPrimary().getVisualBounds().getHeight()/2;
     private static Stage stage;
     private static ArrayList<User> users;
     private static User currentUser;
@@ -50,6 +54,4 @@ public class Database {
     public static Stage getStage() {
         return stage;
     }
-
-
 }
