@@ -28,8 +28,8 @@ public class ShootingAnimation extends Transition {
 
     @Override
     protected void interpolate(double v) {
-        double y = shootingCircle.getCenterY() - 4;
-        double x = shootingCircle.getCenterX() + 4 * Math.tan(degree);
+        double y = shootingCircle.getCenterY() - 7;
+        double x = shootingCircle.getCenterX() + 7 * Math.tan(degree);
         boolean collide = false;
 
         if (centerCircle.collided(shootingCircle)) {

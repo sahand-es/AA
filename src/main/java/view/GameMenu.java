@@ -39,6 +39,7 @@ public class GameMenu extends Application {
         gamePane.getChildren().addAll(group);
 
         gameViewController.rotate(centerCircle, gamePane, RoatateSpeed.SLOW);
+        gameViewController.inflate(centerCircle, gamePane);
 
 
         Scene scene = new Scene(gamePane);
@@ -63,6 +64,10 @@ public class GameMenu extends Application {
 //                    todo: check empty felan
                     createShootingCircle(gamePane, centerCircle);
                 }
+                if (code.equals(KeyCode.I))
+                    gameViewController.invisible(centerCircle, gamePane);
+                if (code.equals(KeyCode.V))
+                    gameViewController.visible(centerCircle, gamePane);
             }
         });
 

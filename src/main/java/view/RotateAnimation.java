@@ -11,6 +11,8 @@ public class RotateAnimation extends Transition {
     CenterCircle centerCircle;
     RoatateSpeed speed;
 
+    int rotateDirection = 1;
+
     public RotateAnimation(Pane pane, CenterCircle centerCircle, RoatateSpeed roatateSpeed) {
         this.pane = pane;
         this.centerCircle = centerCircle;
@@ -24,7 +26,7 @@ public class RotateAnimation extends Transition {
     @Override
     protected void interpolate(double v) {
         for (RotatorCircle rotatorCircle : centerCircle.getRotatorCircles()) {
-            double angle = rotatorCircle.getAngle() + 1;
+            double angle = rotatorCircle.getAngle() + rotateDirection;
             rotatorCircle.setAngle(angle);
             rotatorCircle.setCenterX(rotatorCircle.angleToX(angle));
             rotatorCircle.setCenterY(rotatorCircle.angleToY(angle));
@@ -37,5 +39,9 @@ public class RotateAnimation extends Transition {
     public void setSpeed(RoatateSpeed speed) {
         this.speed = speed;
         this.setRate(speed.speedDouble);
+    }
+
+    public void changeRotateDirection() {
+        rotateDirection = rotateDirection == 1? -1 : 1;
     }
 }
