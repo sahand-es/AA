@@ -4,11 +4,19 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.layout.Pane;
 import model.CenterCircle;
+import model.Game;
 import model.RotatorCircle;
 
 public class GameViewController {
     RotateAnimation rotateAnimation;
-    boolean isVisible = true;
+    // TODO: 5/23/2023 true
+    boolean isVisible = false;
+
+    Game game;
+
+    public GameViewController() {
+        game = new Game();
+    }
 
     public void shoot(CenterCircle centerCircle, RotatorCircle rotatorCircle, Pane gamePane, double degree) {
         ShootingAnimation shootingAnimation = new ShootingAnimation(gamePane, centerCircle, rotatorCircle, degree);
@@ -40,11 +48,16 @@ public class GameViewController {
         inflationAnimation.play();
     }
 
+    public void iceMode() {
+        rotateAnimation.setSpeed(RoatateSpeed.ICE);
+    }
+
     public void invisible(CenterCircle centerCircle, Pane gamePane) {
         if (isVisible) {
             for (RotatorCircle rotatorCircle : centerCircle.getRotatorCircles()) {
                 gamePane.getChildren().removeAll(rotatorCircle, rotatorCircle.getConnectionLine());
             }
+            isVisible = false;
         }
     }
 
@@ -53,6 +66,11 @@ public class GameViewController {
             for (RotatorCircle rotatorCircle : centerCircle.getRotatorCircles()) {
                 gamePane.getChildren().addAll(rotatorCircle, rotatorCircle.getConnectionLine());
             }
+            isVisible = true;
         }
+    }
+
+    public Game getGame() {
+        return game;
     }
 }

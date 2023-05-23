@@ -17,6 +17,8 @@ public class Database {
     private static ArrayList<User> users;
     private static User currentUser;
 
+    private static Game currentGame;
+
     static {
         users = DataManager.loadUsers();
     }
@@ -53,5 +55,13 @@ public class Database {
 
     public static Stage getStage() {
         return stage;
+    }
+
+    public static Game getCurrentGame() {
+        return currentGame;
+    }
+
+    public static void setCurrentGame(Game currentGame) {
+        Database.currentGame = currentGame;
     }
 }

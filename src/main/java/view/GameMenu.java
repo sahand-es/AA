@@ -31,14 +31,14 @@ public class GameMenu extends Application {
         Database.setStage(stage);
         Pane gamePane = FXMLLoader.load(this.getClass().getResource(DataManager.GAME_MENU_PATH));
 
-        CenterCircle centerCircle = CenterCircle.centerCircleInit(new ArrayList<Double>(List.of(180.0, 0.0, 90.0)),
-                gamePane);
+        CenterCircle centerCircle = gameViewController.getGame().getCenterCircle();
+        gameViewController.visible(centerCircle, gamePane);
 
         Group group = new Group();
         group.getChildren().addAll(centerCircle, centerCircle.getCollideCircle());
         gamePane.getChildren().addAll(group);
 
-        gameViewController.rotate(centerCircle, gamePane, RoatateSpeed.SLOW);
+        gameViewController.rotate(centerCircle, gamePane, RoatateSpeed.VERY_FAST);
         gameViewController.inflate(centerCircle, gamePane);
 
 
@@ -68,6 +68,8 @@ public class GameMenu extends Application {
                     gameViewController.invisible(centerCircle, gamePane);
                 if (code.equals(KeyCode.V))
                     gameViewController.visible(centerCircle, gamePane);
+                if (code.equals(KeyCode.TAB))
+                    gameViewController.iceMode();
             }
         });
 

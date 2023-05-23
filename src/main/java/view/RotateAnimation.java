@@ -11,7 +11,7 @@ public class RotateAnimation extends Transition {
     CenterCircle centerCircle;
     RoatateSpeed speed;
 
-    int rotateDirection = 1;
+    double rotateDirection = 0.1;
 
     public RotateAnimation(Pane pane, CenterCircle centerCircle, RoatateSpeed roatateSpeed) {
         this.pane = pane;
@@ -42,6 +42,6 @@ public class RotateAnimation extends Transition {
     }
 
     public void changeRotateDirection() {
-        rotateDirection = rotateDirection == 1? -1 : 1;
+        rotateDirection = rotateDirection == 0.1? -0.1 : 0.1;
     }
 }

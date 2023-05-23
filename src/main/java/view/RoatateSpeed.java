@@ -1,9 +1,11 @@
 package view;
 
 public enum RoatateSpeed {
-    SLOW(0.2),
-    FAST(1),
-    VERY_FAST(1.5);
+    SLOW(1),
+    FAST(2),
+    VERY_FAST(3),
+    ICE(0.1)
+    ;
 
     public double speedDouble;
 

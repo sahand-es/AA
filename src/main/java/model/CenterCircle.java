@@ -32,7 +32,7 @@ public class CenterCircle extends Circle {
         this.setFill(Setting.getGameColor());
     }
 
-    private CenterCircle(ArrayList<Double> angles) {
+    public CenterCircle(ArrayList<Double> angles) {
         this();
 
         for (double angle : angles) {
@@ -40,12 +40,8 @@ public class CenterCircle extends Circle {
         }
     }
 
-    public static CenterCircle centerCircleInit(ArrayList<Double> angles ,Pane pane) {
+    public static CenterCircle centerCircleInit(ArrayList<Double> angles) {
         CenterCircle centerCircle = new CenterCircle(angles);
-
-        for (RotatorCircle rotatorCircle : centerCircle.getRotatorCircles()) {
-            pane.getChildren().addAll(rotatorCircle, rotatorCircle.getConnectionLine());
-        }
 
         return centerCircle;
     }
