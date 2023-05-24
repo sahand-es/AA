@@ -5,16 +5,13 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
-import model.Difficulty;
-import view.RoatateSpeed;
-import view.animations.InflationAnimation;
-import view.animations.RotateAnimation;
-import view.animations.ShootingAnimation;
-import view.game.GameMenu;
+import model.RoatateSpeed;
+import view.animations.*;
 import view.shapes.CenterCircle;
 import model.Database;
 import model.Game;
 import view.shapes.RotatorCircle;
+import view.shapes.ShootingIndicator;
 
 public class GameViewController {
     GameMenu gameMenu;
@@ -24,6 +21,7 @@ public class GameViewController {
 
     boolean inflated = false;
     boolean iceMode = false;
+    boolean indicator = false;
     private long lastChangedDirTime;
     private long iceModeActivationTime;
     private int nextDirDeltaT;
@@ -45,16 +43,28 @@ public class GameViewController {
 
         shootingAnimation.play();
         game.shoot();
+        if (game.getPhase() == 4) {
+            if (!indicator) {
+                gameMenu.playShootingIndicator();
+                indicator = true;
+            }
+        }
     }
 
-    public void moveLeft(RotatorCircle shootingCircle) {
-        if (shootingCircle.getCenterX() > Database.centerX - 100)
+    public void moveLeft(RotatorCircle shootingCircle,  ShootingIndicator shootingIndicator) {
+        if (shootingCircle.getCenterX() > Database.centerX - 100) {
             shootingCircle.setCenterX(shootingCircle.getCenterX() - 8);
+            if (shootingIndicator != null)
+                shootingIndicator.setStartX(shootingIndicator.getStartX() - 8);
+        }
     }
 
-    public void moveRight(RotatorCircle shootingCircle) {
-        if (shootingCircle.getCenterX() < Database.centerX + 100)
+    public void moveRight(RotatorCircle shootingCircle, ShootingIndicator shootingIndicator) {
+        if (shootingCircle.getCenterX() < Database.centerX + 100) {
             shootingCircle.setCenterX(shootingCircle.getCenterX() + 8);
+            if (shootingIndicator != null)
+                shootingIndicator.setStartX(shootingIndicator.getStartX() + 8);
+        }
     }
 
     public void rotate(CenterCircle centerCircle, RoatateSpeed roatateSpeed) {
@@ -70,13 +80,18 @@ public class GameViewController {
     }
 
     public void iceMode() {
+        FreezeAnimation freezeAnimation = new FreezeAnimation(game.getCenterCircle(), gamePane);
+        freezeAnimation.play();
+
         rotateAnimation.setSpeed(RoatateSpeed.ICE);
         iceMode = true;
         iceModeActivationTime = System.currentTimeMillis();
     }
+
     public void deActiveIceMode() {
         rotateAnimation.setSpeed(game.getDifficulty().getRoatateSpeed());
         iceMode = false;
+        game.getCenterCircle().unFreeze();
     }
 
     public void inflate(CenterCircle centerCircle) {
@@ -85,7 +100,7 @@ public class GameViewController {
             @Override
             public void handle(ActionEvent actionEvent) {
                 for (RotatorCircle rotatorCircle : centerCircle.getRotatorCircles()) {
-                    rotatorCircle.setRadius(new RotatorCircle(centerCircle).getRadius());
+                    rotatorCircle.setRadius(new RotatorCircle(centerCircle, 0).getRadius());
                     inflationAnimation.play();
                 }
             }
@@ -111,6 +126,7 @@ public class GameViewController {
             fadeTransition.play();
         }
     }
+
     public void visibleTest(CenterCircle centerCircle) {
         for (RotatorCircle rotatorCircle : centerCircle.getRotatorCircles()) {
             FadeTransition fadeTransition = new FadeTransition();
@@ -128,6 +144,11 @@ public class GameViewController {
             fadeTransition2.play();
             fadeTransition.play();
         }
+    }
+
+    public void indicatorAnimation(ShootingIndicator shootingIndicator) {
+        IndicatorAnimation indicatorAnimation = new IndicatorAnimation(shootingIndicator, gamePane);
+        indicatorAnimation.play();
     }
 
     public Game getGame() {
@@ -153,13 +174,13 @@ public class GameViewController {
             if (!isVisible) {
                 invisibleTest(game.getCenterCircle());
                 isVisible = true;
-            }
-            else if (isVisible) {
+            } else if (isVisible) {
                 visibleTest(game.getCenterCircle());
                 isVisible = false;
             }
         }
     }
+
     public static int randomNumber(int min, int max) {
         return (int) (Math.random() * (max - min + 1) + min);
     }

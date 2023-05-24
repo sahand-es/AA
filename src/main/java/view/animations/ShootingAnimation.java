@@ -4,7 +4,7 @@ import javafx.animation.Transition;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 import javafx.util.Duration;
-import view.RoatateSpeed;
+import model.RoatateSpeed;
 import view.shapes.CenterCircle;
 import view.shapes.RotatorCircle;
 

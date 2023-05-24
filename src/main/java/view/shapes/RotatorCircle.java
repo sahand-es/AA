@@ -13,9 +13,9 @@ public class RotatorCircle extends Circle {
 
     private double angle;
 
-    public RotatorCircle(CenterCircle centerCircle) {
+    public RotatorCircle(CenterCircle centerCircle, double x) {
         super(12);
-        this.setCenterX(Database.centerX);
+        this.setCenterX(x);
         this.setCenterY(800);
         this.setFill(Setting.getGameColor());
 

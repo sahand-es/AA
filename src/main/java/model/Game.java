@@ -25,12 +25,12 @@ public class Game {
 
     private Game(CenterCircle centerCircle) {
         this.centerCircle = centerCircle;
-        this.initialCount = Setting.getShootinCircleCount();
+        this.initialCount = Setting.getShootingCircleCount();
     }
 
     public Game() {
-        this.shootingCirclesCount = Setting.getShootinCircleCount();
-        this.initialCount = Setting.getShootinCircleCount();
+        this.shootingCirclesCount = Setting.getShootingCircleCount();
+        this.initialCount = Setting.getShootingCircleCount();
         this.difficulty = Setting.getDifficulty();
         this.centerCircle = defaultMaps.get(Setting.getMapNumber()).getCenterCircle();
     }
@@ -64,7 +64,6 @@ public class Game {
             phase = 3;
         else if (percentage <= 100)
             phase = 4;
-        System.out.println(phase);
     }
 
     public boolean finished() {

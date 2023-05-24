@@ -1,7 +1,5 @@
 package model;
 
-import view.RoatateSpeed;
-
 import java.time.Duration;
 
 public enum Difficulty {

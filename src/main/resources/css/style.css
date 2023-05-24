@@ -78,7 +78,30 @@
     -fx-font-size: 20;
     -fx-text-fill: rgb(216, 190, 158);
 }
-.context-menu{
+.menu-button .context-menu{
+    -fx-background-radius: 5;
+    -fx-pref-width: 149;
+    -fx-background-color: radial-gradient(center 0px 0px, radius 100%, rgba(104, 63, 11, 0.44), rgba(111, 64, 42, 0.44));
+    -fx-alignment: center;
+}
+.menu-button .menu {
+    -fx-text-alignment: center;
+}
+
+.color-picker {
+    -fx-background-radius: 9;
+    -fx-text-alignment: center;
+    -fx-background-color: radial-gradient(center 0px 0px, radius 100%, #683f0b,#6f402a);
+}
+
+.color-picker .label {
+    -fx-text-alignment: center;
+    -fx-font-family: "Times New Roman", sans-serif;
+    -fx-font-size: 20;
+    -fx-text-fill: rgb(216, 190, 158);
+}
+
+.color-picker .color-box {
     -fx-background-radius: 5;
     -fx-pref-width: 232;
     -fx-background-color: radial-gradient(center 0px 0px, radius 100%, rgba(104, 63, 11, 0.44), rgba(111, 64, 42, 0.44));

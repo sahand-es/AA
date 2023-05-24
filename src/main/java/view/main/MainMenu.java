@@ -1,4 +1,4 @@
-package view;
+package view.main;
 
 import controller.DataManager;
 import javafx.application.Application;

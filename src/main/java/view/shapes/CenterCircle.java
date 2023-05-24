@@ -62,4 +62,11 @@ public class CenterCircle extends Circle {
             return true;
         return false;
     }
+
+    public void freeze() {
+        this.setFill(Color.LIGHTSKYBLUE);
+    }
+    public void unFreeze() {
+        this.setFill(Setting.getGameColor());
+    }
 }

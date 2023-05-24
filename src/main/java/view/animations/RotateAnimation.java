@@ -3,7 +3,7 @@ package view.animations;
 import javafx.animation.Transition;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
-import view.RoatateSpeed;
+import model.RoatateSpeed;
 import view.shapes.CenterCircle;
 import view.shapes.RotatorCircle;
 
@@ -42,7 +42,8 @@ public class RotateAnimation extends Transition {
         this.setRate(speed.speedDouble);
     }
 
-    public void changeRotateDirection() {
+    public void
+    changeRotateDirection() {
         rotateDirection = rotateDirection == 0.1? -0.1 : 0.1;
     }
 }

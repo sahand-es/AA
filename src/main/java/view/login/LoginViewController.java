@@ -6,8 +6,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import model.Database;
-import model.User;
-import view.MainMenu;
+import view.main.MainMenu;
 
 public class LoginViewController {
     public TextField username;

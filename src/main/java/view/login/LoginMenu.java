@@ -7,7 +7,6 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import model.Database;
-import view.MainMenu;
 
 import java.net.URL;
 

@@ -5,8 +5,8 @@ module AA {
     requires org.jetbrains.annotations;
 
     exports model;
-    exports view;
-    opens view;
+//    exports view;
+//    opens view;
     opens model;
     exports view.login;
     opens view.login;
@@ -16,4 +16,6 @@ module AA {
     opens view.animations;
     exports view.game;
     opens view.game;
+    exports view.main;
+    opens view.main;
 }

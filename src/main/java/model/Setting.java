@@ -10,10 +10,10 @@ public class Setting {
     private static KeyCode keyToMoveLeft = KeyCode.LEFT;
     private static KeyCode keyToMoveRight = KeyCode.RIGHT;
 
-    private static Difficulty difficulty = Difficulty.HARD;
+    private static Difficulty difficulty = Difficulty.EASY;
     private static int mapNumber = 3;
 
-    private static int shootinCircleCount = 8;
+    private static int shootingCircleCount = 8;
 
     public static Color getGameColor() {
         return gameColor;
@@ -72,11 +72,11 @@ public class Setting {
         Setting.mapNumber = mapNumber;
     }
 
-    public static int getShootinCircleCount() {
-        return shootinCircleCount;
+    public static int getShootingCircleCount() {
+        return shootingCircleCount;
     }
 
-    public static void setShootinCircleCount(int shootinCircleCount) {
-        Setting.shootinCircleCount = shootinCircleCount;
+    public static void setShootingCircleCount(int shootingCircleCount) {
+        Setting.shootingCircleCount = shootingCircleCount;
     }
 }

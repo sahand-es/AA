@@ -1,4 +1,4 @@
-package view;
+package model;
 
 public enum RoatateSpeed {
     SLOW(1),
