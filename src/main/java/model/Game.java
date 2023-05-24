@@ -1,16 +1,20 @@
 package model;
 
+import view.shapes.CenterCircle;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
-    private final int initShootingCirclesCount;
+    private final int initialCount;
     private int shootingCirclesCount;
     private final CenterCircle centerCircle;
     private Difficulty difficulty;
     private static final ArrayList<Game> defaultMaps = new ArrayList<>();
 
-    private int phase;
+    private double percentage = 0;
+
+    private int phase = 1;
 
     static {
         defaultMaps.add(new Game(new CenterCircle(new ArrayList<Double>(List.of(0.0, 45.0, 90.0, 135.0, 180.0)))));
@@ -21,12 +25,12 @@ public class Game {
 
     private Game(CenterCircle centerCircle) {
         this.centerCircle = centerCircle;
-        this.initShootingCirclesCount = Setting.getShootinCircleCount();
+        this.initialCount = Setting.getShootinCircleCount();
     }
 
     public Game() {
         this.shootingCirclesCount = Setting.getShootinCircleCount();
-        this.initShootingCirclesCount = Setting.getShootinCircleCount();
+        this.initialCount = Setting.getShootinCircleCount();
         this.difficulty = Setting.getDifficulty();
         this.centerCircle = defaultMaps.get(Setting.getMapNumber()).getCenterCircle();
     }
@@ -47,7 +51,23 @@ public class Game {
         return phase;
     }
 
-    public void setPhase(int phase) {
-        this.phase = phase;
+    public void shoot() {
+        shootingCirclesCount--;
+
+        percentage = (((double) initialCount + 1 - (double) shootingCirclesCount)/(double) initialCount) * 100;
+
+        if (percentage <= 25)
+            phase = 1;
+        else if (percentage <= 50)
+            phase = 2;
+        else if (percentage <= 75)
+            phase = 3;
+        else if (percentage <= 100)
+            phase = 4;
+        System.out.println(phase);
+    }
+
+    public boolean finished() {
+        return shootingCirclesCount == 0;
     }
 }

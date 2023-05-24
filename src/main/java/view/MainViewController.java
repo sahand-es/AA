@@ -3,6 +3,7 @@ package view;
 import javafx.event.Event;
 import javafx.scene.input.MouseEvent;
 import model.Database;
+import view.game.GameMenu;
 
 public class MainViewController {
     public void setDifficulty(Event event) {

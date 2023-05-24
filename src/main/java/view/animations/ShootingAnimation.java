@@ -1,11 +1,12 @@
-package view;
+package view.animations;
 
 import javafx.animation.Transition;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 import javafx.util.Duration;
-import model.CenterCircle;
-import model.RotatorCircle;
+import view.RoatateSpeed;
+import view.shapes.CenterCircle;
+import view.shapes.RotatorCircle;
 
 public class ShootingAnimation extends Transition {
 
@@ -35,6 +36,10 @@ public class ShootingAnimation extends Transition {
         if (centerCircle.collided(shootingCircle)) {
             shootingCircle.connect();
             pane.getChildren().add(shootingCircle.getConnectionLine());
+            shootingCircle.setAngle(Math.toDegrees(Math.atan(
+                    (shootingCircle.getCenterX() - centerCircle.getCenterX())/
+                    (shootingCircle.getCenterY() -   centerCircle.getCenterY()))));
+
             this.stop();
             collide = true;
         }

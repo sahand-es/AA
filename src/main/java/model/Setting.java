@@ -6,7 +6,11 @@ import javafx.scene.paint.Color;
 public class Setting {
     private static Color gameColor = Color.BLACK;
     private static KeyCode keyToShoot = KeyCode.SPACE;
-    private static Difficulty difficulty = Difficulty.EASY;
+    private static KeyCode keyToIceMode = KeyCode.TAB;
+    private static KeyCode keyToMoveLeft = KeyCode.LEFT;
+    private static KeyCode keyToMoveRight = KeyCode.RIGHT;
+
+    private static Difficulty difficulty = Difficulty.HARD;
     private static int mapNumber = 3;
 
     private static int shootinCircleCount = 8;
@@ -25,6 +29,30 @@ public class Setting {
 
     public static void setKeyToShoot(KeyCode keyToShoot) {
         Setting.keyToShoot = keyToShoot;
+    }
+
+    public static KeyCode getKeyToIceMode() {
+        return keyToIceMode;
+    }
+
+    public static void setKeyToIceMode(KeyCode keyToIceMode) {
+        Setting.keyToIceMode = keyToIceMode;
+    }
+
+    public static KeyCode getKeyToMoveLeft() {
+        return keyToMoveLeft;
+    }
+
+    public static void setKeyToMoveLeft(KeyCode keyToMoveLeft) {
+        Setting.keyToMoveLeft = keyToMoveLeft;
+    }
+
+    public static KeyCode getKeyToMoveRight() {
+        return keyToMoveRight;
+    }
+
+    public static void setKeyToMoveRight(KeyCode keyToMoveRight) {
+        Setting.keyToMoveRight = keyToMoveRight;
     }
 
     public static Difficulty getDifficulty() {

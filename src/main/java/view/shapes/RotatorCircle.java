@@ -1,8 +1,10 @@
-package model;
+package view.shapes;
 
 import javafx.geometry.Point2D;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import model.Database;
+import model.Setting;
 
 public class RotatorCircle extends Circle {
     CenterCircle centerCircle;
@@ -12,7 +14,7 @@ public class RotatorCircle extends Circle {
     private double angle;
 
     public RotatorCircle(CenterCircle centerCircle) {
-        super(15);
+        super(12);
         this.setCenterX(Database.centerX);
         this.setCenterY(800);
         this.setFill(Setting.getGameColor());
@@ -22,7 +24,7 @@ public class RotatorCircle extends Circle {
     }
 
     public RotatorCircle(double angle, CenterCircle centerCircle) {
-        super(10);
+        super(12);
         this.centerCircle = centerCircle;
 
         this.angle = angle;
@@ -43,6 +45,7 @@ public class RotatorCircle extends Circle {
         connectionLine.setStrokeWidth(0.8);
 
         centerCircle.addRotatorCircle(this);
+
     }
 
     public Line getConnectionLine() {

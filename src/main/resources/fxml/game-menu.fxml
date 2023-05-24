@@ -9,7 +9,7 @@
 <?import javafx.stage.Screen?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="view.GameViewController"
+            fx:controller="view.game.GameViewController"
             stylesheets="@../css/style.css"
             prefWidth="${screen.visualBounds.width}"
             prefHeight="${screen.visualBounds.height}">

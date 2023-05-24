@@ -1,12 +1,10 @@
-package view;
+package view.animations;
 
 import javafx.animation.Transition;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
-import model.CenterCircle;
-import model.RotatorCircle;
+import view.shapes.CenterCircle;
+import view.shapes.RotatorCircle;
 
 public class InflationAnimation extends Transition {
     Pane pane;
@@ -25,7 +23,7 @@ public class InflationAnimation extends Transition {
     @Override
     protected void interpolate(double v) {
         for (RotatorCircle rotatorCircle : centerCircle.getRotatorCircles()) {
-            rotatorCircle.setRadius(rotatorCircle.getRadius() + 0.06);
+            rotatorCircle.setRadius(rotatorCircle.getRadius() + 0.04);
         }
 
         for (RotatorCircle rotatorCircle1 : centerCircle.getRotatorCircles()) {

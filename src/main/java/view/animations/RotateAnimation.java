@@ -1,10 +1,11 @@
-package view;
+package view.animations;
 
 import javafx.animation.Transition;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
-import model.CenterCircle;
-import model.RotatorCircle;
+import view.RoatateSpeed;
+import view.shapes.CenterCircle;
+import view.shapes.RotatorCircle;
 
 public class RotateAnimation extends Transition {
     Pane pane;
