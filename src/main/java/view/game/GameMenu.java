@@ -9,6 +9,10 @@ import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextBoundsType;
 import javafx.stage.Stage;
 import model.*;
 import view.shapes.CenterCircle;
@@ -26,6 +30,8 @@ public class GameMenu extends Application {
     private static double lastX = Database.centerX;
 
     private static ShootingIndicator shootingIndicator;
+    private static Text remainingCount;
+
     @Override
     public void start(Stage stage) throws Exception {
 
@@ -44,7 +50,8 @@ public class GameMenu extends Application {
     }
 
     private RotatorCircle createShootingCircle(CenterCircle centerCircle) {
-        updateLabel(gameViewController.getGame());
+        updatePhaselabel(gameViewController.getGame());
+        updateRemainingCount();
         RotatorCircle shootingCircle = new RotatorCircle(centerCircle, lastX);
 
         gamePane.getChildren().addAll(shootingCircle);
@@ -61,22 +68,19 @@ public class GameMenu extends Application {
                     gamePane.requestFocus();
                     if (!gameViewController.getGame().finished())
                         createShootingCircle(centerCircle);
+                    else updateRemainingCount();
                     return;
                 }
-//                if (code.equals(KeyCode.S))
-//                    gameViewController.indicatorAnimation(shootingIndicator);
-//                if (code.equals(KeyCode.A))
-//                    shootingIndicator.setAngle(shootingCircle.getAngle() - 1);
-                if (code.equals(Setting.getKeyToIceMode()))
+                if (code.equals(Setting.getKeyToIceMode())) {
                     gameViewController.iceMode();
+                    remainingCount.toFront();
+                }
                 if (gameViewController.getGame().getPhase() == 4) {
-                    if (code.equals(Setting.getKeyToMoveRight()))
-                    {
+                    if (code.equals(Setting.getKeyToMoveRight())) {
                         gameViewController.moveRight(shootingCircle, shootingIndicator);
                         if (shootingCircle.getCenterX() < Database.centerX + 100) lastX += 8;
                     }
-                    if (code.equals(Setting.getKeyToMoveLeft()))
-                    {
+                    if (code.equals(Setting.getKeyToMoveLeft())) {
                         gameViewController.moveLeft(shootingCircle, shootingIndicator);
                         if (shootingCircle.getCenterX() > Database.centerX - 100) lastX -= 8;
                     }
@@ -86,22 +90,24 @@ public class GameMenu extends Application {
 
         return shootingCircle;
     }
+
     private void initGameScene() {
         setCenterCircle();
         setPhaseControl();
         setPhaseLabel();
         setShootingIndicator();
+        setRemainingCount();
         playRotateAnimation();
     }
 
     private void setCenterCircle() {
         centerCircle = gameViewController.getGame().getCenterCircle();
-
         for (RotatorCircle rotatorCircle : centerCircle.getRotatorCircles()) {
             gamePane.getChildren().addAll(rotatorCircle, rotatorCircle.getConnectionLine());
         }
         gamePane.getChildren().add(centerCircle);
     }
+
 
     private void setPhaseLabel() {
         label = new Label(String.valueOf(gameViewController.getGame().getPhase()));
@@ -111,7 +117,7 @@ public class GameMenu extends Application {
         gamePane.getChildren().add(label);
     }
 
-    private void updateLabel(Game game) {
+    private void updatePhaselabel(Game game) {
         label.setText(String.valueOf(game.getPhase()));
     }
 
@@ -121,16 +127,44 @@ public class GameMenu extends Application {
         timer.scheduleAtFixedRate(phaseControl, 0, 1000);
     }
 
-    public void setShootingIndicator() {
-        shootingIndicator = new ShootingIndicator(75 );
+    private void setShootingIndicator() {
+        shootingIndicator = new ShootingIndicator(75);
         gamePane.getChildren().add(shootingIndicator);
     }
+
+    private void setRemainingCount() {
+        int count = gameViewController.getGame().getShootingCirclesCount();
+        remainingCount = new Text(String.valueOf(gameViewController.getGame().getShootingCirclesCount()));
+        remainingCount.setFill(Setting.getGameColor().invert());
+        if (count < 10) {
+            remainingCount.setLayoutX(centerCircle.getCenterX() - 35);
+        } else remainingCount.setLayoutX(centerCircle.getCenterX() - 70);
+        remainingCount.setLayoutY(centerCircle.getCenterY() + 45);
+        remainingCount.getStyleClass().add("number");
+        remainingCount.setBoundsType(TextBoundsType.VISUAL);
+        remainingCount.setFont(Font.font("Comic Sans MS", FontWeight.BOLD, 20));
+        gamePane.getChildren().add(remainingCount);
+    }
+
+    public void updateRemainingCount() {
+        int count = gameViewController.getGame().getShootingCirclesCount();
+        if (count < 10) {
+            remainingCount.setLayoutX(centerCircle.getCenterX() - 35);
+        } else remainingCount.setLayoutX(centerCircle.getCenterX() - 70);
+        remainingCount.toFront();
+        remainingCount.setText(String.valueOf(gameViewController.getGame().getShootingCirclesCount()));
+    }
+
     public void playShootingIndicator() {
         gameViewController.indicatorAnimation(shootingIndicator);
     }
 
     public void playRotateAnimation() {
         gameViewController.rotate(centerCircle, gameViewController.getGame().getDifficulty().getRoatateSpeed());
+    }
+
+    public static void startGame() throws Exception {
+        new GameMenu().start(Database.getStage());
     }
 
     public static void main(String[] args) {

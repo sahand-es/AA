@@ -11,8 +11,8 @@ public class Game {
     private final CenterCircle centerCircle;
     private Difficulty difficulty;
     private static final ArrayList<Game> defaultMaps = new ArrayList<>();
-
     private double percentage = 0;
+    private User user;
 
     private int phase = 1;
 
@@ -33,6 +33,7 @@ public class Game {
         this.initialCount = Setting.getShootingCircleCount();
         this.difficulty = Setting.getDifficulty();
         this.centerCircle = defaultMaps.get(Setting.getMapNumber()).getCenterCircle();
+        this.user = Database.getCurrentUser();
     }
 
     public int getShootingCirclesCount() {
@@ -68,5 +69,12 @@ public class Game {
 
     public boolean finished() {
         return shootingCirclesCount == 0;
+    }
+    public int getInitialCount() {
+        return initialCount;
+    }
+
+    public User getUser() {
+        return user;
     }
 }

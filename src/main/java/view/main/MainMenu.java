@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import model.Database;
 import view.login.LoginMenu;
 
 import java.net.URL;
@@ -21,6 +22,7 @@ public class MainMenu extends Application {
     public void start(Stage stage) throws Exception {
         stage.setMaximized(true);
         stage.setFullScreen(true);
+        Database.setStage(stage);
         URL loginURL = LoginMenu.class.getResource(DataManager.MAIN_MENU_PATH);
         assert loginURL != null;
         AnchorPane anchorPane = FXMLLoader.load(loginURL);

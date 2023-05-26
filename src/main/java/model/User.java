@@ -5,6 +5,7 @@ import controller.DataManager;
 public class User {
     private String username;
     private String password;
+    private int score;
 
     public User(String username, String password) {
         this.username = username;
@@ -18,7 +19,7 @@ public class User {
         return username;
     }
 
-    public boolean isValidPass(String password) {
+    public boolean isCorrectPass(String password) {
         return this.password.equals(password);
     }
 
@@ -42,5 +43,14 @@ public class User {
         if (!password.matches("\\S*[A-Z]+\\S*"))
             return false;
         return true;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void addScore(Game game) {
+        if (game.finished())
+            score += game.getDifficulty().getRoatateSpeed().speedDouble * game.getInitialCount();
     }
 }

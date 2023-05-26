@@ -26,10 +26,23 @@
     -fx-font-family: "Times New Roman", sans-serif;
     -fx-font-size: 150px;
 }
+.number {
+    -fx-font-family: "Roboto Light", sans-serif;
+    -fx-font-size: 120px;
+    -fx-text-alignment: left;
+    -fx-alignment: center;
+}
 
 .label2 {
     -fx-font-family: "Times New Roman", sans-serif;
     -fx-font-size: 20;
+}
+
+.text-left {
+    -fx-font-family: "Times New Roman", sans-serif;
+    -fx-font-size: 20;
+    -fx-text-alignment: left;
+    -fx-alignment: center-left;
 }
 
 .play-button {

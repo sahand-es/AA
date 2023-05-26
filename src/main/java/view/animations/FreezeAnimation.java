@@ -29,20 +29,7 @@ public class FreezeAnimation extends Transition {
 
     @Override
     protected void interpolate(double v) {
-        // TODO: 5/24/2023 delete:
-//        int number = 1;
-//        if (0 <= v && v <= 0.33) number = 1;
-//        else if (0.33 < v && v <= 0.66) number = 2;
-//        else if (0.66 < v && v <= 1) number = 3;
-
-//        centerCircle.setFill(new ImagePattern(
-//                new Image(
-//                        FreezeAnimation.class.getResource(
-//                                "/images/freeze/ice" + number + ".jpg").toExternalForm())));
-
         if (!playing) {
-            gamePane.getChildren().remove(centerCircle);
-            gamePane.getChildren().add(centerCircle);
             fillTransition.play();
         }
     }

@@ -6,6 +6,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import model.Database;
+import view.game.GameMenu;
 import view.main.MainMenu;
 
 public class LoginViewController {
@@ -58,7 +59,7 @@ public class LoginViewController {
         }
     }
 
-    public void playAsGuest(MouseEvent mouseEvent) {
-//        ToDo: game menu.
+    public void playAsGuest(MouseEvent mouseEvent) throws Exception {
+        new GameMenu().start(Database.getStage());
     }
 }

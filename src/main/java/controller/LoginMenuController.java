@@ -10,7 +10,7 @@ public class LoginMenuController {
             return LoginMessages.NO_USER_WITH_THIS_USERNAME;
         User user = Database.getUserByUsername(username);
         assert user != null;
-        if (!user.isValidPass(password))
+        if (!user.isCorrectPass(password))
             return LoginMessages.INCORRECT_PASSWORD;
 
         Database.setCurrentUser(user);

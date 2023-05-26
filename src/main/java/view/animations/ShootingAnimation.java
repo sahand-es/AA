@@ -36,6 +36,8 @@ public class ShootingAnimation extends Transition {
         if (centerCircle.collided(shootingCircle)) {
             shootingCircle.connect();
             pane.getChildren().add(shootingCircle.getConnectionLine());
+            shootingCircle.toBack();
+            shootingCircle.getConnectionLine().toBack();
             shootingCircle.setAngle(Math.toDegrees(Math.atan(
                     (shootingCircle.getCenterX() - centerCircle.getCenterX())/
                     (shootingCircle.getCenterY() -   centerCircle.getCenterY()))));
