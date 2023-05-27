@@ -1,9 +1,16 @@
 package view.game;
 
+import controller.DataManager;
+import controller.GameControl;
 import javafx.animation.FadeTransition;
+import javafx.animation.ScaleTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 import model.RoatateSpeed;
 import view.animations.*;
@@ -13,9 +20,12 @@ import model.Game;
 import view.shapes.RotatorCircle;
 import view.shapes.ShootingIndicator;
 
+import java.io.File;
+
 public class GameViewController {
     GameMenu gameMenu;
     RotateAnimation rotateAnimation;
+    InflationAnimation inflationAnimation;
     // TODO: 5/23/2023 true
     boolean isVisible = false;
 
@@ -36,6 +46,7 @@ public class GameViewController {
     public void setGameView(Pane gamePane, GameMenu gameMenu) {
         this.gamePane = gamePane;
         this.gameMenu = gameMenu;
+        GameControl.setGameViewController(this);
     }
 
     public void shoot(CenterCircle centerCircle, RotatorCircle rotatorCircle, double degree) {
@@ -52,7 +63,7 @@ public class GameViewController {
     }
 
     public void moveLeft(RotatorCircle shootingCircle,  ShootingIndicator shootingIndicator) {
-        if (shootingCircle.getCenterX() > Database.centerX - 100) {
+        if (shootingCircle.getCenterX() > Database.centerX - 300) {
             shootingCircle.setCenterX(shootingCircle.getCenterX() - 8);
             if (shootingIndicator != null)
                 shootingIndicator.setStartX(shootingIndicator.getStartX() - 8);
@@ -60,7 +71,7 @@ public class GameViewController {
     }
 
     public void moveRight(RotatorCircle shootingCircle, ShootingIndicator shootingIndicator) {
-        if (shootingCircle.getCenterX() < Database.centerX + 100) {
+        if (shootingCircle.getCenterX() < Database.centerX + 300) {
             shootingCircle.setCenterX(shootingCircle.getCenterX() + 8);
             if (shootingIndicator != null)
                 shootingIndicator.setStartX(shootingIndicator.getStartX() + 8);
@@ -79,7 +90,8 @@ public class GameViewController {
         nextDirDeltaT = randomNumber(4, 8);
     }
 
-    public void iceMode() {
+    public void iceMode(ProgressBar progressBar) {
+        progressBar.setProgress(0);
         FreezeAnimation freezeAnimation = new FreezeAnimation(game.getCenterCircle(), gamePane);
         freezeAnimation.play();
 
@@ -95,7 +107,7 @@ public class GameViewController {
     }
 
     public void inflate(CenterCircle centerCircle) {
-        InflationAnimation inflationAnimation = new InflationAnimation(gamePane, centerCircle);
+        inflationAnimation = new InflationAnimation(gamePane, centerCircle);
         inflationAnimation.setOnFinished(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -180,6 +192,38 @@ public class GameViewController {
             }
         }
     }
+
+    public void collisionZoomAnimation(Circle circle1, Circle circle2) {
+        if (circle1 == null || circle2 == null)
+            return;
+        ScaleTransition st1 = new ScaleTransition(Duration.millis(4000), circle1);
+        st1.setByX(0.8f);
+        st1.setByY(0.8f);
+        st1.setCycleCount(3);
+        st1.setAutoReverse(true);
+
+        ScaleTransition st2 = new ScaleTransition(Duration.millis(4000), circle2);
+        st2.setByX(0.8f);
+        st2.setByY(0.8f);
+        st2.setCycleCount(3);
+        st2.setAutoReverse(true);
+
+        st1.play();
+        st2.play();
+    }
+
+    public void lost(Circle circle1, Circle circle2) {
+        rotateAnimation.stop();
+        if (inflationAnimation != null)
+            inflationAnimation.stop();
+        if (!isVisible)
+            visibleTest(game.getCenterCircle());
+        collisionZoomAnimation(circle1,circle2);
+        gameMenu.setLostScene();
+        MediaPlayer mediaPlayer = new MediaPlayer(new Media(new File(DataManager.LOSE_SOUND_PATH).toURI().toString()));
+        mediaPlayer.play();
+    }
+
 
     public static int randomNumber(int min, int max) {
         return (int) (Math.random() * (max - min + 1) + min);

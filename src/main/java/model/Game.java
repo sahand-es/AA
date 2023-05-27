@@ -9,10 +9,12 @@ public class Game {
     private final int initialCount;
     private int shootingCirclesCount;
     private final CenterCircle centerCircle;
+    private int initialConnectedCount;
     private Difficulty difficulty;
     private static final ArrayList<Game> defaultMaps = new ArrayList<>();
     private double percentage = 0;
     private User user;
+    private long startTime;
 
     private int phase = 1;
 
@@ -33,7 +35,9 @@ public class Game {
         this.initialCount = Setting.getShootingCircleCount();
         this.difficulty = Setting.getDifficulty();
         this.centerCircle = defaultMaps.get(Setting.getMapNumber()).getCenterCircle();
+        this.initialConnectedCount = centerCircle.getRotatorCircles().size();
         this.user = Database.getCurrentUser();
+        this.startTime = System.currentTimeMillis();
     }
 
     public int getShootingCirclesCount() {
@@ -68,7 +72,7 @@ public class Game {
     }
 
     public boolean finished() {
-        return shootingCirclesCount == 0;
+        return centerCircle.getRotatorCircles().size() - initialConnectedCount + 1 == initialCount;
     }
     public int getInitialCount() {
         return initialCount;
@@ -76,5 +80,9 @@ public class Game {
 
     public User getUser() {
         return user;
+    }
+
+    public long getStartTime() {
+        return startTime;
     }
 }

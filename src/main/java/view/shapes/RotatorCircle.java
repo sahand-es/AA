@@ -1,6 +1,8 @@
 package view.shapes;
 
 import javafx.geometry.Point2D;
+import javafx.scene.image.Image;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import model.Database;
@@ -17,7 +19,8 @@ public class RotatorCircle extends Circle {
         super(12);
         this.setCenterX(x);
         this.setCenterY(800);
-        this.setFill(Setting.getGameColor());
+//        this.setFill(Setting.getGameColor());
+        this.setFill(new ImagePattern(new Image(RotatorCircle.class.getResource("/images/triple_ezmi_agadmwoaajbi8fe.png").toExternalForm())));
 
         isConnected = false;
         this.centerCircle = centerCircle;

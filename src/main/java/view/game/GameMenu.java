@@ -1,20 +1,30 @@
 package view.game;
 
 import controller.DataManager;
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextBoundsType;
 import javafx.stage.Stage;
 import model.*;
+import org.apache.commons.lang3.time.DurationFormatUtils;
 import view.shapes.CenterCircle;
 import view.shapes.RotatorCircle;
 import view.shapes.ShootingIndicator;
@@ -30,7 +40,10 @@ public class GameMenu extends Application {
     private static double lastX = Database.centerX;
 
     private static ShootingIndicator shootingIndicator;
+    private static ProgressBar progressBar;
     private static Text remainingCount;
+    private static PhaseControl phaseControl;
+    private static AnimationTimer timer;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -50,8 +63,10 @@ public class GameMenu extends Application {
     }
 
     private RotatorCircle createShootingCircle(CenterCircle centerCircle) {
-        updatePhaselabel(gameViewController.getGame());
+        updatePhaseLabel(gameViewController.getGame());
         updateRemainingCount();
+        updateProgressBar();
+
         RotatorCircle shootingCircle = new RotatorCircle(centerCircle, lastX);
 
         gamePane.getChildren().addAll(shootingCircle);
@@ -68,23 +83,28 @@ public class GameMenu extends Application {
                     gamePane.requestFocus();
                     if (!gameViewController.getGame().finished())
                         createShootingCircle(centerCircle);
-                    else updateRemainingCount();
+                    else {
+                        updateRemainingCount();
+                        setWinScene();
+                    }
                     return;
                 }
-                if (code.equals(Setting.getKeyToIceMode())) {
-                    gameViewController.iceMode();
+                if (code.equals(Setting.getKeyToIceMode()) && progressBar.getProgress() >= 0.99) {
+                    gameViewController.iceMode(progressBar);
                     remainingCount.toFront();
                 }
                 if (gameViewController.getGame().getPhase() == 4) {
                     if (code.equals(Setting.getKeyToMoveRight())) {
                         gameViewController.moveRight(shootingCircle, shootingIndicator);
-                        if (shootingCircle.getCenterX() < Database.centerX + 100) lastX += 8;
+                        if (shootingCircle.getCenterX() < Database.centerX + 300) lastX += 8;
                     }
                     if (code.equals(Setting.getKeyToMoveLeft())) {
                         gameViewController.moveLeft(shootingCircle, shootingIndicator);
-                        if (shootingCircle.getCenterX() > Database.centerX - 100) lastX -= 8;
+                        if (shootingCircle.getCenterX() > Database.centerX - 300) lastX -= 8;
                     }
                 }
+                if (code.equals(KeyCode.L))
+                    setWinScene();
             }
         });
 
@@ -96,6 +116,8 @@ public class GameMenu extends Application {
         setPhaseControl();
         setPhaseLabel();
         setShootingIndicator();
+        setProgressBar();
+        setGameTimer();
         setRemainingCount();
         playRotateAnimation();
     }
@@ -117,18 +139,18 @@ public class GameMenu extends Application {
         gamePane.getChildren().add(label);
     }
 
-    private void updatePhaselabel(Game game) {
+    private void updatePhaseLabel(Game game) {
         label.setText(String.valueOf(game.getPhase()));
     }
 
     private void setPhaseControl() {
-        PhaseControl phaseControl = new PhaseControl(gameViewController);
+        phaseControl = new PhaseControl(gameViewController);
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(phaseControl, 0, 1000);
     }
 
     private void setShootingIndicator() {
-        shootingIndicator = new ShootingIndicator(75);
+        shootingIndicator = new ShootingIndicator(60);
         gamePane.getChildren().add(shootingIndicator);
     }
 
@@ -155,12 +177,79 @@ public class GameMenu extends Application {
         remainingCount.setText(String.valueOf(gameViewController.getGame().getShootingCirclesCount()));
     }
 
+    public void setProgressBar() {
+        progressBar = new ProgressBar();
+        progressBar.setProgress(0);
+        progressBar.setLayoutX(100);
+        progressBar.setLayoutY(100);
+        progressBar.getStyleClass().add("black-bar");
+        progressBar.setBackground(gamePane.getBackground());
+        gamePane.getChildren().add(progressBar);
+    }
+
+    public void setPauseButton() {
+        Button pauseButton = new Button("pause");
+        pauseButton.setLayoutX(100);
+        pauseButton.setLayoutY(100);
+        pauseButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                // TODO: 5/26/2023 pause
+            }
+        });
+
+        gamePane.getChildren().add(pauseButton);
+
+    }
+
+    public void updateProgressBar() {
+        double progress = progressBar.getProgress();
+        if (progress + 0.25 < 100)
+            progress += 0.25;
+        progressBar.setProgress(progress);
+    }
+
+    public void setGameTimer() {
+        Text text = new Text();
+        text.setLayoutX(1120);
+        text.setLayoutY(820);
+        text.getStyleClass().add("number");
+        gamePane.getChildren().add(text);
+        timer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                long duration = System.currentTimeMillis() - gameViewController.getGame().getStartTime();
+                if (duration > 91 * 1000){
+                    gameViewController.lost(null, null);
+                    return;
+                }
+                text.setText(DurationFormatUtils.formatDuration(duration, "mm:ss", true));
+            }
+        };
+
+        timer.start();
+    }
+
+
     public void playShootingIndicator() {
         gameViewController.indicatorAnimation(shootingIndicator);
     }
 
     public void playRotateAnimation() {
         gameViewController.rotate(centerCircle, gameViewController.getGame().getDifficulty().getRoatateSpeed());
+    }
+
+    public void setLostScene() {
+        phaseControl.cancel();
+        gamePane.requestFocus();
+        timer.stop();
+        gamePane.setBackground(new Background(new BackgroundFill(Color.RED, new CornerRadii(0), new Insets(0))));
+        progressBar.setBackground(gamePane.getBackground());
+    }
+
+    public void setWinScene() {
+        gamePane.setBackground(new Background(new BackgroundFill(Color.SPRINGGREEN, new CornerRadii(0), new Insets(0))));
+        progressBar.setBackground(gamePane.getBackground());
     }
 
     public static void startGame() throws Exception {

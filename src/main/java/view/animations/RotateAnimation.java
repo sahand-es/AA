@@ -1,5 +1,6 @@
 package view.animations;
 
+import javafx.animation.RotateTransition;
 import javafx.animation.Transition;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;

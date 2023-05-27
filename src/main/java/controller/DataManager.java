@@ -18,6 +18,12 @@ public class DataManager {
     public static String MAIN_MENU_PATH = "/fxml/main-menu.fxml";
     public static String GAME_MENU_PATH = "/fxml/game-menu.fxml";
     public static String USERS_DATABASE_PATH = "src/main/resources/json/users.json";
+    public static String CONNECT_SOUND_PATH = "src/main/resources/sounds/breakingbones.mp3";
+    public static String LOSE_SOUND_PATH = "src/main/resources/sounds/sad-noises.mp3";
+    public static String FIRST_MUSIC_PATH = "src/main/resources/sounds/Mahan Farzad - Still.mp3";
+    public static String SECOND_MUSIC_PATH = "src/main/resources/sounds/Mahan Farzad - Transition.mp3";
+    public static String THIRD_MUSIC_PATH = "src/main/resources/sounds/Mahan Farzad - Piano Day 2017.mp3";
+    public static String ICON_PATH = "/images/aa-icon.png";
 
     public static ArrayList<User> loadUsers() {
         try {

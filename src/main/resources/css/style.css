@@ -26,6 +26,7 @@
     -fx-font-family: "Times New Roman", sans-serif;
     -fx-font-size: 150px;
 }
+
 .number {
     -fx-font-family: "Roboto Light", sans-serif;
     -fx-font-size: 120px;
@@ -69,6 +70,7 @@
     -fx-background-color: rgb(216, 190, 158);
     -fx-font-size: 30px;
 }
+
 .exit-button:hover {
     -fx-background-color: rgba(255, 0, 0, 0.56);
 }
@@ -80,10 +82,11 @@
     -fx-background-position: center;
 
 }
+
 .menu-button {
     -fx-alignment: center;
     -fx-background-radius: 9;
-    -fx-background-color: radial-gradient(center 0px 0px, radius 100%, #683f0b,#6f402a);
+    -fx-background-color: radial-gradient(center 0px 0px, radius 100%, #683f0b, #6f402a);
 }
 
 .menu-button .label {
@@ -91,12 +94,14 @@
     -fx-font-size: 20;
     -fx-text-fill: rgb(216, 190, 158);
 }
-.menu-button .context-menu{
+
+.menu-button .context-menu {
     -fx-background-radius: 5;
     -fx-pref-width: 149;
     -fx-background-color: radial-gradient(center 0px 0px, radius 100%, rgba(104, 63, 11, 0.44), rgba(111, 64, 42, 0.44));
     -fx-alignment: center;
 }
+
 .menu-button .menu {
     -fx-text-alignment: center;
 }
@@ -104,7 +109,7 @@
 .color-picker {
     -fx-background-radius: 9;
     -fx-text-alignment: center;
-    -fx-background-color: radial-gradient(center 0px 0px, radius 100%, #683f0b,#6f402a);
+    -fx-background-color: radial-gradient(center 0px 0px, radius 100%, #683f0b, #6f402a);
 }
 
 .color-picker .label {
@@ -118,6 +123,39 @@
     -fx-background-radius: 5;
     -fx-pref-width: 232;
     -fx-background-color: radial-gradient(center 0px 0px, radius 100%, rgba(104, 63, 11, 0.44), rgba(111, 64, 42, 0.44));
+}
+
+.progress-bar {
+    -fx-background-radius: 10;
+    -fx-box-border: linear-gradient(rgb(216, 190, 158), rgb(218, 194, 164));
+    -fx-padding: 0.416667em;
+    -fx-pref-height: 35;
+    -fx-pref-width: 140;
+    -fx-border-radius: 30;
+    -fx-background-insets: 0, 1, 2;
+}
+
+.green-bar {
+    -fx-accent: green;
+}
+
+.yellow-bar {
+    -fx-accent: yellow;
+}
+
+.orange-bar {
+    -fx-accent: orange;
+}
+
+.red-bar {
+    -fx-accent: red;
+}
+
+.brown-bar {
+    -fx-accent: rgb(104, 63, 11)
+}
+.black-bar {
+    -fx-accent: black
 }
 
 

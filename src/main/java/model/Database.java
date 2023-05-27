@@ -4,6 +4,7 @@ import controller.DataManager;
 
 import java.util.ArrayList;
 
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -18,6 +19,7 @@ public class Database {
     private static User currentUser;
 
     private static Game currentGame;
+    private static MediaPlayer mainMusic;
 
     static {
         users = DataManager.loadUsers();
@@ -63,5 +65,13 @@ public class Database {
 
     public static void setCurrentGame(Game currentGame) {
         Database.currentGame = currentGame;
+    }
+
+    public static MediaPlayer getMainMusic() {
+        return mainMusic;
+    }
+
+    public static void setMainMusic(MediaPlayer mainMusic) {
+        Database.mainMusic = mainMusic;
     }
 }

@@ -11,7 +11,7 @@ public class Setting {
     private static KeyCode keyToMoveRight = KeyCode.RIGHT;
 
     private static Difficulty difficulty = Difficulty.EASY;
-    private static int mapNumber = 3;
+    private static int mapNumber = 0;
 
     private static int shootingCircleCount = 8;
 

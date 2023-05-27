@@ -1,8 +1,10 @@
 module AA {
     requires javafx.controls;
     requires javafx.fxml;
+    requires javafx.media;
     requires com.google.gson;
     requires org.jetbrains.annotations;
+    requires commons.lang3;
 
     exports model;
 //    exports view;
