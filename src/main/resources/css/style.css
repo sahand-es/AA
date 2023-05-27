@@ -14,6 +14,15 @@
     -fx-background-color: linear-gradient(to bottom, rgba(111, 64, 42), #c89350);
 }
 
+.toggle-button {
+    -fx-alignment: center;
+    -fx-background-radius: 9;
+    -fx-background-color: linear-gradient(to left, #6f402a, #c89350);
+}
+.toggle-button:focused {
+    -fx-background-color: linear-gradient(to bottom, rgba(111, 64, 42), #92724d);
+}
+
 .text-field {
     -fx-border-radius: 9;
     -fx-border-width: 1;
@@ -44,6 +53,15 @@
     -fx-font-size: 20;
     -fx-text-alignment: left;
     -fx-alignment: center-left;
+}
+.text-center {
+    -fx-border-color: black;
+    -fx-border-radius: 5;
+    -fx-border-width: 2;
+    -fx-font-family: "Times New Roman", sans-serif;
+    -fx-font-size: 20;
+    -fx-text-alignment: center;
+    -fx-alignment: center;
 }
 
 .play-button {

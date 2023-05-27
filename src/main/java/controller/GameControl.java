@@ -6,6 +6,7 @@ import model.User;
 import view.game.GameMenu;
 import view.game.GameMessages;
 import view.game.GameViewController;
+import view.main.MainMenu;
 import view.shapes.RotatorCircle;
 
 import java.util.ArrayList;
@@ -50,6 +51,10 @@ public class GameControl {
         gameViewController.lost(circle1, circle2);
     }
 
+    public static void unPauseGame() {
+        gameViewController.unPause();
+    }
+
     public static void gameControl(GameMessages gameMessage,
                                    Game game,
                                    GameViewController gameViewController) throws Exception {
@@ -57,5 +62,9 @@ public class GameControl {
             case WIN -> endGame(game);
             case LOST -> newGame();
         }
+    }
+
+    public static void restart() {
+
     }
 }

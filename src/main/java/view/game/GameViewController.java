@@ -6,13 +6,17 @@ import javafx.animation.FadeTransition;
 import javafx.animation.ScaleTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 import model.RoatateSpeed;
+import model.Setting;
 import view.animations.*;
 import view.shapes.CenterCircle;
 import model.Database;
@@ -23,6 +27,8 @@ import view.shapes.ShootingIndicator;
 import java.io.File;
 
 public class GameViewController {
+    public Text buttonsHelp;
+    public Button test;
     GameMenu gameMenu;
     RotateAnimation rotateAnimation;
     InflationAnimation inflationAnimation;
@@ -224,8 +230,21 @@ public class GameViewController {
         mediaPlayer.play();
     }
 
+    public void pause() {
+        rotateAnimation.pause();
+        if (inflated)
+            inflationAnimation.pause();
+    }
+
+    public void unPause() {
+        rotateAnimation.play();
+        if (inflated)
+            inflationAnimation.play();
+        gameMenu.removePauseMenu();
+    }
 
     public static int randomNumber(int min, int max) {
         return (int) (Math.random() * (max - min + 1) + min);
     }
+
 }

@@ -2,10 +2,11 @@ package model;
 
 import controller.DataManager;
 
+import java.io.File;
 import java.util.ArrayList;
 
+import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.*;
@@ -19,7 +20,11 @@ public class Database {
     private static User currentUser;
 
     private static Game currentGame;
-    private static MediaPlayer mainMusic;
+    private static MediaPlayer mainMusic = new MediaPlayer(new Media(new File(DataManager.FIRST_MUSIC_PATH).toURI().toString()));
+
+    static {
+        mainMusic.play();
+    }
 
     static {
         users = DataManager.loadUsers();
@@ -73,5 +78,18 @@ public class Database {
 
     public static void setMainMusic(MediaPlayer mainMusic) {
         Database.mainMusic = mainMusic;
+    }
+
+    public static void changeMusic(int i) {
+        mainMusic.stop();
+        MediaPlayer mediaPlayer = null;
+        switch (i % 3) {
+            case 0 -> mediaPlayer = new MediaPlayer(new Media(new File(DataManager.FIRST_MUSIC_PATH).toURI().toString()));
+            case 1 -> mediaPlayer = new MediaPlayer(new Media(new File(DataManager.SECOND_MUSIC_PATH).toURI().toString()));
+            case 2 -> mediaPlayer = new MediaPlayer(new Media(new File(DataManager.THIRD_MUSIC_PATH).toURI().toString()));
+        }
+        Database.setMainMusic(mediaPlayer);
+        mediaPlayer.setVolume(0.8);
+        mediaPlayer.play();
     }
 }

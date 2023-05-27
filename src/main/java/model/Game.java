@@ -8,10 +8,11 @@ import java.util.List;
 public class Game {
     private final int initialCount;
     private int shootingCirclesCount;
-    private final CenterCircle centerCircle;
+    private CenterCircle centerCircle;
     private int initialConnectedCount;
     private Difficulty difficulty;
     private static final ArrayList<Game> defaultMaps = new ArrayList<>();
+    private static final ArrayList<ArrayList<Double>> angles = new ArrayList<>();
     private double percentage = 0;
     private User user;
     private long startTime;
@@ -23,6 +24,11 @@ public class Game {
         defaultMaps.add(new Game(new CenterCircle(new ArrayList<Double>(List.of(0.0, 90.0, 180.0, 270.0, 290.0)))));
         defaultMaps.add(new Game(new CenterCircle(new ArrayList<Double>(List.of(0.0, 30.0, 60.0, 270.0, 200.0, 150.0, 180.0)))));
         defaultMaps.add(new Game(new CenterCircle(new ArrayList<Double>(List.of(0.0, -30.0, 60.0, 270.0, 130.0, 150.0, 180.0)))));
+
+        angles.add(new ArrayList<Double>(List.of(0.0, 45.0, 90.0, 135.0, 180.0)));
+        angles.add(new ArrayList<Double>(List.of(0.0, 90.0, 180.0, 270.0, 290.0)));
+        angles.add(new ArrayList<Double>(List.of(0.0, 30.0, 60.0, 270.0, 200.0, 150.0, 180.0)));
+        angles.add(new ArrayList<Double>(List.of(0.0, -30.0, 60.0, 270.0, 130.0, 150.0, 180.0)));
     }
 
     private Game(CenterCircle centerCircle) {
@@ -34,7 +40,7 @@ public class Game {
         this.shootingCirclesCount = Setting.getShootingCircleCount();
         this.initialCount = Setting.getShootingCircleCount();
         this.difficulty = Setting.getDifficulty();
-        this.centerCircle = defaultMaps.get(Setting.getMapNumber()).getCenterCircle();
+        this.centerCircle = new CenterCircle(angles.get(Setting.getMapNumber()));
         this.initialConnectedCount = centerCircle.getRotatorCircles().size();
         this.user = Database.getCurrentUser();
         this.startTime = System.currentTimeMillis();

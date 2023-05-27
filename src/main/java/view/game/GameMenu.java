@@ -6,10 +6,12 @@ import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.effect.GaussianBlur;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -33,21 +35,23 @@ import java.util.Timer;
 
 
 public class GameMenu extends Application {
-    public static GameViewController gameViewController = new GameViewController();
-    private static Label label;
-    private static Pane gamePane;
-    private static CenterCircle centerCircle;
-    private static double lastX = Database.centerX;
+    public GameViewController gameViewController;
+    private Label label;
+    private Pane gamePane;
+    private CenterCircle centerCircle;
+    private double lastX = Database.centerX;
 
-    private static ShootingIndicator shootingIndicator;
-    private static ProgressBar progressBar;
-    private static Text remainingCount;
-    private static PhaseControl phaseControl;
-    private static AnimationTimer timer;
+    private ShootingIndicator shootingIndicator;
+    private ProgressBar progressBar;
+    private Text remainingCount;
+    private PhaseControl phaseControl;
+    private AnimationTimer timer;
+    private Pane pausePane;
+    private RotatorCircle shootingCircle;
 
     @Override
     public void start(Stage stage) throws Exception {
-
+        gameViewController = new GameViewController();
         stage.setMaximized(true);
         stage.setFullScreen(true);
         Database.setStage(stage);
@@ -58,16 +62,17 @@ public class GameMenu extends Application {
 
         Scene scene = new Scene(gamePane);
         stage.setScene(scene);
-        RotatorCircle rotatorCircle1 = createShootingCircle(centerCircle);
+        createShootingCircle(centerCircle);
         stage.show();
     }
 
-    private RotatorCircle createShootingCircle(CenterCircle centerCircle) {
+    private void createShootingCircle(CenterCircle centerCircle) {
+        System.out.println(centerCircle.getRotatorCircles().size());
         updatePhaseLabel(gameViewController.getGame());
         updateRemainingCount();
         updateProgressBar();
 
-        RotatorCircle shootingCircle = new RotatorCircle(centerCircle, lastX);
+        shootingCircle = new RotatorCircle(centerCircle, lastX);
 
         gamePane.getChildren().addAll(shootingCircle);
         shootingCircle.requestFocus();
@@ -80,7 +85,7 @@ public class GameMenu extends Application {
                     double angle = 0;
                     angle = shootingIndicator == null ? 0 : shootingIndicator.getAngle();
                     gameViewController.shoot(centerCircle, shootingCircle, angle);
-                    gamePane.requestFocus();
+//                    gamePane.requestFocus();
                     if (!gameViewController.getGame().finished())
                         createShootingCircle(centerCircle);
                     else {
@@ -90,6 +95,7 @@ public class GameMenu extends Application {
                     return;
                 }
                 if (code.equals(Setting.getKeyToIceMode()) && progressBar.getProgress() >= 0.99) {
+                    shootingCircle.requestFocus();
                     gameViewController.iceMode(progressBar);
                     remainingCount.toFront();
                 }
@@ -103,15 +109,19 @@ public class GameMenu extends Application {
                         if (shootingCircle.getCenterX() > Database.centerX - 300) lastX -= 8;
                     }
                 }
-                if (code.equals(KeyCode.L))
-                    setWinScene();
+                if (code.equals(KeyCode.P)) {
+                    try {
+                        setPauseMenu();
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                }
             }
         });
 
-        return shootingCircle;
     }
 
-    private void initGameScene() {
+    private void initGameScene() throws Exception {
         setCenterCircle();
         setPhaseControl();
         setPhaseLabel();
@@ -120,6 +130,7 @@ public class GameMenu extends Application {
         setGameTimer();
         setRemainingCount();
         playRotateAnimation();
+//        setPauseButton();
     }
 
     private void setCenterCircle() {
@@ -189,17 +200,41 @@ public class GameMenu extends Application {
 
     public void setPauseButton() {
         Button pauseButton = new Button("pause");
-        pauseButton.setLayoutX(100);
-        pauseButton.setLayoutY(100);
+        pauseButton.setLayoutX(30);
+        pauseButton.setLayoutY(30);
         pauseButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                // TODO: 5/26/2023 pause
+                try {
+                    setPauseMenu();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
-
         gamePane.getChildren().add(pauseButton);
+    }
 
+
+    public void setPauseMenu() throws Exception {
+        for (Node child : gamePane.getChildren()) {
+            GaussianBlur gaussianBlur = new GaussianBlur(10);
+            child.setEffect(gaussianBlur);
+        }
+
+        gameViewController.pause();
+        pausePane = FXMLLoader.load(this.getClass().getResource(DataManager.PAUSE_MENU_PATH));
+        pausePane.setLayoutX(Database.centerX - 230);
+        pausePane.setLayoutY(Database.centerY - 250);
+        pausePane.setBackground(new Background(new BackgroundFill(Color.rgb(192, 152, 99), new CornerRadii(10), new Insets(0))));
+        gamePane.getChildren().add(pausePane);
+    }
+    public void removePauseMenu() {
+        gamePane.getChildren().remove(pausePane);
+        for (Node child : gamePane.getChildren()) {
+            child.setEffect(null);
+        }
+        shootingCircle.requestFocus();
     }
 
     public void updateProgressBar() {
@@ -253,7 +288,7 @@ public class GameMenu extends Application {
     }
 
     public static void startGame() throws Exception {
-        new GameMenu().start(Database.getStage());
+       new GameMenu().start(Database.getStage());
     }
 
     public static void main(String[] args) {
