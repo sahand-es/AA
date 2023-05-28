@@ -1,12 +1,13 @@
 package model;
 
 import controller.DataManager;
+import view.game.GameViewController;
 
 public class User {
     private String username;
     private String password;
     private int score;
-    private String imagePath = "";
+    private String imagePath;
 
 
     public User(String username, String password) {
@@ -73,12 +74,18 @@ public class User {
 
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
+        DataManager.saveUsers();
+    }
+    public void randomImagePath() {
+        setImagePath("src/main/resources/images/avatars/avatar" + GameViewController.randomNumber(1,6) + ".png");
     }
     public void setUsername(String username) {
         this.username = username;
+        DataManager.saveUsers();
     }
 
     public void setPassword(String password) {
         this.password = password;
+        DataManager.saveUsers();
     }
 }

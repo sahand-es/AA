@@ -218,14 +218,18 @@ public class GameViewController {
         st2.play();
     }
 
-    public void lost(Circle circle1, Circle circle2) {
+    public void lost(Circle circle1, Circle circle2)  {
         rotateAnimation.stop();
         if (inflationAnimation != null)
             inflationAnimation.stop();
         if (!isVisible)
             visibleTest(game.getCenterCircle());
         collisionZoomAnimation(circle1,circle2);
-        gameMenu.setLostScene();
+        try {
+            gameMenu.setLostScene();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         MediaPlayer mediaPlayer = new MediaPlayer(new Media(new File(DataManager.LOSE_SOUND_PATH).toURI().toString()));
         mediaPlayer.play();
     }

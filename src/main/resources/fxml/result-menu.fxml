@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<Pane prefHeight="495.0" prefWidth="426.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="view.game.ResultViewController">
+    <children>
+        <Button layoutX="223.0" layoutY="371.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="155.0"
+                text="Restart" onMouseClicked="#restart"
+                styleClass="label4"/>
+        <Button layoutX="58.0" layoutY="371.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="155.0"
+                styleClass="label4" text="Main menu" onMouseClicked="#mainMenu"/>
+        <Label alignment="CENTER" layoutX="131.0" layoutY="63.0" prefHeight="131.0" prefWidth="165.0" text="Time" fx:id="time" styleClass="label4"/>
+        <Label alignment="CENTER" layoutX="129.0" layoutY="211.0" prefHeight="96.0" prefWidth="165.0" text="Score" fx:id="score" styleClass="label4"/>
+    </children>
+</Pane>

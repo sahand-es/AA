@@ -22,6 +22,17 @@ public class ProfileMenuController {
 
         return ProfileMessages.CHANGE_USERNAME_SUCCESS;
     }
+    public static ProfileMessages checkDeleteAccount(String oldPassword) {
+        User user = Database.getCurrentUser();
+        if (user.equals(Database.getGuest()))
+            return ProfileMessages.GUEST_USER;
+        if (!user.isCorrectPass(oldPassword))
+            return ProfileMessages.INCORRECT_PASSWORD;
+
+        Database.removeUser(user);
+
+        return ProfileMessages.DELETE_ACCOUNT_SUCCESS;
+    }
     public static ProfileMessages checkChangePassword(String newPassword, String oldPassword) {
         User user = Database.getCurrentUser();
         if (user.equals(Database.getGuest()))

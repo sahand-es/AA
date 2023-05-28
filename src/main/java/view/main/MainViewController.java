@@ -1,5 +1,6 @@
 package view.main;
 
+import controller.DataManager;
 import controller.GameControl;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -38,6 +39,7 @@ public class MainViewController {
 
     public void exit(MouseEvent mouseEvent) {
         // TODO: 5/28/2023 check
+        DataManager.saveUsers();
         System.exit(1);
     }
 

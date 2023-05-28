@@ -31,6 +31,7 @@ import view.shapes.CenterCircle;
 import view.shapes.RotatorCircle;
 import view.shapes.ShootingIndicator;
 
+import java.io.IOException;
 import java.util.Timer;
 
 
@@ -48,6 +49,7 @@ public class GameMenu extends Application {
     private PhaseControl phaseControl;
     private AnimationTimer timer;
     private Pane pausePane;
+    private Pane resultPane;
     private RotatorCircle shootingCircle;
 
     @Override
@@ -91,7 +93,11 @@ public class GameMenu extends Application {
                         createShootingCircle(centerCircle);
                     else {
                         updateRemainingCount();
-                        setWinScene();
+                        try {
+                            setWinScene();
+                        } catch (Exception e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     return;
                 }
@@ -132,7 +138,6 @@ public class GameMenu extends Application {
         setPercentage();
         setRemainingCount();
         playRotateAnimation();
-//        setPauseButton();
     }
 
     private void setCenterCircle() {
@@ -200,8 +205,8 @@ public class GameMenu extends Application {
         gamePane.getChildren().add(percentage);
     }
 
-    public void updatePercentage(){
-        percentage.setProgress(gameViewController.getGame().getPercentage()/100);
+    public void updatePercentage() {
+        percentage.setProgress(gameViewController.getGame().getPercentage() / 100);
         int phase = gameViewController.getGame().getPhase();
 
         if (phase == 2) percentage.getStyleClass().add("orange-bar");
@@ -250,6 +255,7 @@ public class GameMenu extends Application {
         pausePane.setBackground(new Background(new BackgroundFill(Color.rgb(192, 152, 99), new CornerRadii(10), new Insets(0))));
         gamePane.getChildren().add(pausePane);
     }
+
     public void removePauseMenu() {
         gamePane.getChildren().remove(pausePane);
         for (Node child : gamePane.getChildren()) {
@@ -275,7 +281,7 @@ public class GameMenu extends Application {
             @Override
             public void handle(long now) {
                 long duration = System.currentTimeMillis() - gameViewController.getGame().getStartTime();
-                if (duration > 91 * 1000){
+                if (duration > 91 * 1000) {
                     gameViewController.lost(null, null);
                     return;
                 }
@@ -295,21 +301,41 @@ public class GameMenu extends Application {
         gameViewController.rotate(centerCircle, gameViewController.getGame().getDifficulty().getRoatateSpeed());
     }
 
-    public void setLostScene() {
+    public void setLostScene() throws Exception {
         phaseControl.cancel();
         gamePane.requestFocus();
         timer.stop();
         gamePane.setBackground(new Background(new BackgroundFill(Color.RED, new CornerRadii(0), new Insets(0))));
         progressBar.setBackground(gamePane.getBackground());
+        setResultPane(true);
     }
 
-    public void setWinScene() {
+    public void setWinScene() throws Exception {
+        phaseControl.cancel();
+        gamePane.requestFocus();
+        timer.stop();
         gamePane.setBackground(new Background(new BackgroundFill(Color.SPRINGGREEN, new CornerRadii(0), new Insets(0))));
         progressBar.setBackground(gamePane.getBackground());
+        setResultPane(true);
+    }
+
+    public void setResultPane(boolean hasWon) throws Exception {
+        resultPane = FXMLLoader.load(this.getClass().getResource(DataManager.RESULT_MENU_PATH));
+        for (Node child : gamePane.getChildren()) {
+            GaussianBlur gaussianBlur = new GaussianBlur(10);
+            child.setEffect(gaussianBlur);
+        }
+        resultPane.setLayoutX(Database.centerX - 230);
+        resultPane.setLayoutY(Database.centerY - 250);
+        resultPane.setBackground(new Background(new BackgroundFill(Color.rgb(192, 152, 99),
+                new CornerRadii(10), new Insets(0))));
+
+        gameViewController.pause();
+        gamePane.getChildren().add(resultPane);
     }
 
     public static void startGame() throws Exception {
-       new GameMenu().start(Database.getStage());
+        new GameMenu().start(Database.getStage());
     }
 
     public static void main(String[] args) {

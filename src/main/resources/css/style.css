@@ -181,4 +181,13 @@
     -fx-font-family: "Times New Roman", sans-serif;
     -fx-font-size: 70;
     -fx-text-fill: black;
+}.label4 {
+    -fx-font-family: "Times New Roman", sans-serif;
+    -fx-font-size: 20;
+    -fx-text-fill: black;
+}
+
+.image-view {
+    -fx-border-radius: 50;
+    -fx-alignment: center;
 }

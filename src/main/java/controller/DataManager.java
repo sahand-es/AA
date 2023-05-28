@@ -18,6 +18,7 @@ public class DataManager {
     public static String MAIN_MENU_PATH = "/fxml/main-menu.fxml";
     public static String GAME_MENU_PATH = "/fxml/game-menu.fxml";
     public static String PAUSE_MENU_PATH = "/fxml/pause-menu.fxml";
+    public static String RESULT_MENU_PATH = "/fxml/result-menu.fxml";
     public static String PROFILE_MENU_PATH = "/fxml/profile-menu.fxml";
     public static String USERS_DATABASE_PATH = "src/main/resources/json/users.json";
     public static String CONNECT_SOUND_PATH = "src/main/resources/sounds/breakingbones.mp3";
