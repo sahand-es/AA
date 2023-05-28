@@ -16,19 +16,25 @@ public class ResultViewController {
     private void initialize() {
         long duration = System.currentTimeMillis() - GameControl.getGame().getStartTime();
         this.setTime(DurationFormatUtils.formatDuration(duration, "mm:ss", true));
+        if (GameControl.getGame().finished())
             this.setScore(String.valueOf(GameControl.getGame().getDifficulty().getRoatateSpeed()
                     .speedDouble
-                    * GameControl.getGame().getInitialCount()));
+                    * (GameControl.getGame().getInitialCount() - GameControl.getGame().getShootingCirclesCount())));
+        else
+            this.setScore(String.valueOf(GameControl.getGame().getDifficulty().getRoatateSpeed()
+                    .speedDouble
+                    * (GameControl.getGame().getInitialCount() - GameControl.getGame().getShootingCirclesCount() - 1)));
 
     }
 
-    public void restart(MouseEvent mouseEvent) {
+    public void restart(MouseEvent mouseEvent) throws Exception {
         GameControl.restart();
     }
 
     public void mainMenu(MouseEvent mouseEvent) throws Exception {
         MainMenu.startMenu();
     }
+
     public void setTime(String times) {
         time.setText(times);
     }

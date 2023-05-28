@@ -1,6 +1,7 @@
 package view.game;
 
 import controller.DataManager;
+import controller.GameControl;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -320,15 +321,20 @@ public class GameMenu extends Application {
     }
 
     public void setResultPane(boolean hasWon) throws Exception {
+        GameControl.endGame(gameViewController.getGame());
         resultPane = FXMLLoader.load(this.getClass().getResource(DataManager.RESULT_MENU_PATH));
         for (Node child : gamePane.getChildren()) {
-            GaussianBlur gaussianBlur = new GaussianBlur(10);
+            GaussianBlur gaussianBlur = new GaussianBlur(3);
             child.setEffect(gaussianBlur);
         }
         resultPane.setLayoutX(Database.centerX - 230);
         resultPane.setLayoutY(Database.centerY - 250);
         resultPane.setBackground(new Background(new BackgroundFill(Color.rgb(192, 152, 99),
                 new CornerRadii(10), new Insets(0))));
+        resultPane.setOpacity(0.8);
+        for (Node child : resultPane.getChildren()) {
+            child.setOpacity(0.8);
+        }
 
         gameViewController.pause();
         gamePane.getChildren().add(resultPane);

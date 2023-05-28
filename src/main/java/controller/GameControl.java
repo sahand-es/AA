@@ -69,8 +69,12 @@ public class GameControl {
     }
 
 
-    public static void restart() {
+    public static void restart() throws Exception {
+        GameControl.newGame();
+    }
 
+    public void endGame() {
+        Database.getCurrentUser().addScore(game);
     }
 
     public static Game getGame() {

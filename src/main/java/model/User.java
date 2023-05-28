@@ -40,6 +40,7 @@ public class User {
     public static boolean isUniqueUsername(String username) {
         return Database.getUserByUsername(username) == null;
     }
+
     public static boolean isValidUsername(String username) {
         if (username.length() < 6 || username.length() > 15)
             return false;
@@ -47,6 +48,7 @@ public class User {
             return false;
         return true;
     }
+
     public static boolean isValidPassword(String password) {
         if (password.length() < 6 || password.length() > 15)
             return false;
@@ -64,8 +66,10 @@ public class User {
     }
 
     public void addScore(Game game) {
-        if (game.finished())
-            score += game.getDifficulty().getRoatateSpeed().speedDouble * game.getInitialCount();
+        score += game.getDifficulty().getRoatateSpeed().speedDouble * (game.getInitialCount() - game.getShootingCirclesCount());
+        if (!game.finished())
+            score -= game.getDifficulty().getRoatateSpeed().speedDouble;
+        DataManager.saveUsers();
     }
 
     public String getImagePath() {
@@ -76,9 +80,11 @@ public class User {
         this.imagePath = imagePath;
         DataManager.saveUsers();
     }
+
     public void randomImagePath() {
-        setImagePath("src/main/resources/images/avatars/avatar" + GameViewController.randomNumber(1,6) + ".png");
+        setImagePath("src/main/resources/images/avatars/avatar" + GameViewController.randomNumber(1, 6) + ".png");
     }
+
     public void setUsername(String username) {
         this.username = username;
         DataManager.saveUsers();
