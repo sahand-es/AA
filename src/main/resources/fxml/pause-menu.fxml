@@ -10,9 +10,9 @@
 <Pane prefHeight="495.0" prefWidth="426.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.game.PauseViewController">
    <children>
       <Button fx:id="backButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#unPause" text="Back" />
-      <Button layoutX="132.0" layoutY="373.0" mnemonicParsing="false" text="Save" />
+      <Button layoutX="132.0" layoutY="373.0" mnemonicParsing="false" text="Save" onMouseClicked="#saveGame"/>
       <Text fx:id="buttonsHelp" layoutX="105.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-center" text="Text" wrappingWidth="205.7392578125" />
-      <Button layoutY="470.0" mnemonicParsing="false" text="Exit" />
+      <Button layoutY="470.0" mnemonicParsing="false" text="Exit" onMouseClicked="#exit"/>
       <ToggleButton fx:id="muteButton" layoutX="232.0" layoutY="373.0" mnemonicParsing="false" onMouseClicked="#muteMusic" text="Mute" />
       <MenuButton layoutX="153.0" layoutY="204.0" mnemonicParsing="false" text="MenuButton">
          <items>

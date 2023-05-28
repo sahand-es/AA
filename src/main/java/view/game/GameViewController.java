@@ -46,7 +46,7 @@ public class GameViewController {
     private Game game;
 
     public GameViewController() {
-        game = new Game();
+        game = GameControl.getGame();
     }
 
     public void setGameView(Pane gamePane, GameMenu gameMenu) {

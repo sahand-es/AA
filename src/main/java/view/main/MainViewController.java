@@ -1,5 +1,6 @@
 package view.main;
 
+import controller.GameControl;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -12,6 +13,7 @@ import model.Database;
 import model.Difficulty;
 import model.Setting;
 import view.game.GameMenu;
+import view.profile.ProfileMenu;
 
 public class MainViewController {
     public ColorPicker colorPicker;
@@ -35,15 +37,19 @@ public class MainViewController {
     }
 
     public void exit(MouseEvent mouseEvent) {
+        // TODO: 5/28/2023 check
         System.exit(1);
     }
 
-    public void profileMenu(MouseEvent mouseEvent) {
+    public void profileMenu(MouseEvent mouseEvent) throws Exception {
+        ProfileMenu.startProfileMenu();
     }
 
     public void startGame(MouseEvent mouseEvent) throws Exception {
-        GameMenu.startGame();
+        GameControl.newGame();
     }
+
+
 
 
     public void setColor(ActionEvent actionEvent) {
@@ -96,5 +102,9 @@ public class MainViewController {
                 });
             }
         });
+    }
+
+    public void continueGame(MouseEvent mouseEvent) throws Exception {
+        GameControl.continueGame();
     }
 }

@@ -17,7 +17,6 @@ public class LoginViewController {
         String password = this.password.getText();
         String username = this.username.getText();
         LoginMessages message = LoginMenuController.checkLogin(username, password);
-
         switch (message) {
             case NO_USER_WITH_THIS_USERNAME -> new Alert(Alert.AlertType.INFORMATION, """
                     There is no user with this username, signup first
@@ -60,6 +59,7 @@ public class LoginViewController {
     }
 
     public void playAsGuest(MouseEvent mouseEvent) throws Exception {
-        new GameMenu().start(Database.getStage());
+        Database.setCurrentUser(Database.getGuest());
+        new MainMenu().start(Database.getStage());
     }
 }

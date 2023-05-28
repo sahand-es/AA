@@ -31,4 +31,8 @@ public class MainMenu extends Application {
         stage.setScene(scene);
         stage.show();
     }
+
+    public static void startMenu() throws Exception {
+        new MainMenu().start(Database.getStage());
+    }
 }

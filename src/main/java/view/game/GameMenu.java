@@ -43,6 +43,7 @@ public class GameMenu extends Application {
 
     private ShootingIndicator shootingIndicator;
     private ProgressBar progressBar;
+    private ProgressBar percentage;
     private Text remainingCount;
     private PhaseControl phaseControl;
     private AnimationTimer timer;
@@ -67,10 +68,10 @@ public class GameMenu extends Application {
     }
 
     private void createShootingCircle(CenterCircle centerCircle) {
-        System.out.println(centerCircle.getRotatorCircles().size());
         updatePhaseLabel(gameViewController.getGame());
         updateRemainingCount();
         updateProgressBar();
+        updatePercentage();
 
         shootingCircle = new RotatorCircle(centerCircle, lastX);
 
@@ -128,6 +129,7 @@ public class GameMenu extends Application {
         setShootingIndicator();
         setProgressBar();
         setGameTimer();
+        setPercentage();
         setRemainingCount();
         playRotateAnimation();
 //        setPauseButton();
@@ -186,6 +188,25 @@ public class GameMenu extends Application {
         } else remainingCount.setLayoutX(centerCircle.getCenterX() - 70);
         remainingCount.toFront();
         remainingCount.setText(String.valueOf(gameViewController.getGame().getShootingCirclesCount()));
+    }
+
+    public void setPercentage() {
+        percentage = new ProgressBar();
+        percentage.setProgress(0);
+        percentage.setLayoutX(1200);
+        percentage.setLayoutY(100);
+        percentage.getStyleClass().add("yellow-bar");
+        percentage.setBackground(gamePane.getBackground());
+        gamePane.getChildren().add(percentage);
+    }
+
+    public void updatePercentage(){
+        percentage.setProgress(gameViewController.getGame().getPercentage()/100);
+        int phase = gameViewController.getGame().getPhase();
+
+        if (phase == 2) percentage.getStyleClass().add("orange-bar");
+        if (phase == 3) percentage.getStyleClass().add("red-bar");
+        if (phase == 4) percentage.getStyleClass().add("green-bar");
     }
 
     public void setProgressBar() {

@@ -1,0 +1,14 @@
+package view.profile;
+
+public enum ProfileMessages {
+    GUEST_USER,
+    ENTER_OLD_PASS,
+    ENTER_NEW_USERNAME,
+    ENTER_NEW_PASS,
+    INCORRECT_PASSWORD,
+    INVALID_USERNAME,
+    INVALID_PASSWORD,
+    TAKEN_USERNAME,
+    CHANGE_USERNAME_SUCCESS,
+    CHANGE_PASS_SUCCESS;
+}

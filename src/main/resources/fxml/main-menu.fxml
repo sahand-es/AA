@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.stage.Screen?>
 
-<AnchorPane prefHeight="900" prefWidth="1500" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.main.MainViewController" fx:id="pane">
+<AnchorPane fx:id="pane" prefHeight="900" prefWidth="1500" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.main.MainViewController">
 <!--            prefWidth="${screen.visualBounds.width}"-->
 <!--            prefHeight="${screen.visualBounds.height}">-->
 <!--    <fx:define>-->
@@ -81,10 +81,11 @@
         </items>
       </MenuButton>
       <ColorPicker fx:id="colorPicker" layoutX="1195.0" layoutY="186.0" onAction="#setColor" />
-      <Slider blockIncrement="2.0" layoutX="665.0" layoutY="603.0" majorTickUnit="1.0" max="20.0" min="8.0" minorTickCount="1" prefHeight="25.0" prefWidth="158.0" showTickLabels="true" showTickMarks="true" value="1.0" onMouseClicked="#setBalls" fx:id="slider"/>
-      <Button layoutX="1141.0" layoutY="411.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="230.0" text="Shoot: " fx:id="shootButton" styleClass="text-left"/>
-      <Button layoutX="1141.0" layoutY="473.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="230.0" text="Freeze: " fx:id="freezeButton" styleClass="text-left"/>
-      <Button layoutX="1141.0" layoutY="535.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="230.0" text="Left: " fx:id="leftMoveButton" styleClass="text-left"/>
-      <Button layoutX="1141.0" layoutY="602.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="230.0" text="right: " fx:id="rightMoveButton" styleClass="text-left"/>
+      <Slider fx:id="slider" blockIncrement="2.0" layoutX="665.0" layoutY="603.0" majorTickUnit="1.0" max="20.0" min="8.0" minorTickCount="1" onMouseClicked="#setBalls" prefHeight="25.0" prefWidth="158.0" showTickLabels="true" showTickMarks="true" value="1.0" />
+      <Button fx:id="shootButton" layoutX="1141.0" layoutY="411.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="230.0" styleClass="text-left" text="Shoot: " />
+      <Button fx:id="freezeButton" layoutX="1141.0" layoutY="473.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="230.0" styleClass="text-left" text="Freeze: " />
+      <Button fx:id="leftMoveButton" layoutX="1141.0" layoutY="535.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="230.0" styleClass="text-left" text="Left: " />
+      <Button fx:id="rightMoveButton" layoutX="1141.0" layoutY="602.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="230.0" styleClass="text-left" text="right: " />
+      <Button layoutX="504.0" layoutY="366.0" mnemonicParsing="false" text="Continue" onMouseClicked="#continueGame"/>
     </children>
 </AnchorPane>

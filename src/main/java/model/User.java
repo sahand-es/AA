@@ -6,10 +6,23 @@ public class User {
     private String username;
     private String password;
     private int score;
+    private String imagePath = "";
+
 
     public User(String username, String password) {
         this.username = username;
         this.password = password;
+        this.score = 0;
+
+        Database.addUser(this);
+        DataManager.saveUsers();
+    }
+
+    public User(String username, String password, int score, String imagePath) {
+        this.username = username;
+        this.password = password;
+        this.score = score;
+        this.imagePath = imagePath;
 
         Database.addUser(this);
         DataManager.saveUsers();
@@ -52,5 +65,20 @@ public class User {
     public void addScore(Game game) {
         if (game.finished())
             score += game.getDifficulty().getRoatateSpeed().speedDouble * game.getInitialCount();
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

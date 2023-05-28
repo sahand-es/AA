@@ -177,3 +177,8 @@
 }
 
 
+.label3 {
+    -fx-font-family: "Times New Roman", sans-serif;
+    -fx-font-size: 70;
+    -fx-text-fill: black;
+}

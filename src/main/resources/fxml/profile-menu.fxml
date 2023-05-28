@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="900" prefWidth="1500" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.profile.ProfileViewController">
+   <children>
+      <Button layoutX="549.0" layoutY="691.0" mnemonicParsing="false" onMouseClicked="#logout" prefHeight="53.0" prefWidth="115.0" text="Logout" />
+      <Button layoutX="549.0" layoutY="759.0" mnemonicParsing="false" onMouseClicked="#deleteAccount" prefHeight="53.0" prefWidth="168.0" text="Delete account" />
+      <ImageView fitHeight="296.0" fitWidth="381.0" layoutX="549.0" layoutY="122.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="usernameLabel" alignment="CENTER" layoutX="550.0" layoutY="405.0" prefHeight="107.0" prefWidth="381.0" styleClass="label3" text="username" />
+      <TextField fx:id="oldPass" layoutX="549.0" layoutY="572.0" prefHeight="47.0" prefWidth="381.0" promptText="old password" />
+      <TextField fx:id="newUsername" layoutX="549.0" layoutY="512.0" prefHeight="47.0" prefWidth="381.0" promptText="new username" />
+      <TextField fx:id="newPassword" layoutX="549.0" layoutY="635.0" prefHeight="47.0" prefWidth="381.0" promptText="new password" />
+      <Button layoutX="668.0" layoutY="691.0" mnemonicParsing="false" onMouseClicked="#changeUsername" prefHeight="53.0" prefWidth="261.0" text="Change username" />
+      <Button layoutX="722.0" layoutY="759.0" mnemonicParsing="false" onMouseClicked="#changePassword" prefHeight="53.0" prefWidth="207.0" text="Change password" />
+      <Button mnemonicParsing="false" onMouseClicked="#backToMainMenu" text="Back" />
+      <ImageView fitHeight="120.0" fitWidth="125.0" layoutX="1005.0" layoutY="469.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fitHeight="120.0" fitWidth="125.0" layoutX="1145.0" layoutY="469.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fitHeight="120.0" fitWidth="125.0" layoutX="1281.0" layoutY="469.0" pickOnBounds="true" preserveRatio="true" />
+   </children>
+</AnchorPane>

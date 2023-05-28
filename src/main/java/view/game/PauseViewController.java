@@ -9,6 +9,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import model.Database;
 import model.Setting;
+import view.main.MainMenu;
 
 public class PauseViewController {
     public Text buttonsHelp;
@@ -47,5 +48,13 @@ public class PauseViewController {
 
     public void restart(MouseEvent mouseEvent) throws Exception {
         GameControl.newGame();
+    }
+
+    public void exit(MouseEvent mouseEvent) throws Exception {
+        MainMenu.startMenu();
+    }
+
+    public void saveGame(MouseEvent mouseEvent) {
+        GameControl.saveGame();
     }
 }

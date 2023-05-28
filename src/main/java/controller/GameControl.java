@@ -14,6 +14,7 @@ import java.util.List;
 
 public class GameControl {
     static GameViewController gameViewController;
+    static Game game = new Game();
 
     public static void setGameViewController(GameViewController gameViewController) {
        GameControl.gameViewController = gameViewController;
@@ -26,6 +27,18 @@ public class GameControl {
     }
 
     public static void newGame() throws Exception {
+        game = new Game();
+        GameMenu.startGame();
+    }
+    public static void continueGame() throws Exception {
+        game = Database.getSavedGame();
+        game = game == null ? new Game() : game;
+        game.getCenterCircle().setEffect(null);
+        game.setStartTime();
+        for (RotatorCircle rotatorCircle : game.getCenterCircle().getRotatorCircles()) {
+            rotatorCircle.setEffect(null);
+            rotatorCircle.getConnectionLine().setEffect(null);
+        }
         GameMenu.startGame();
     }
 
@@ -55,16 +68,18 @@ public class GameControl {
         gameViewController.unPause();
     }
 
-    public static void gameControl(GameMessages gameMessage,
-                                   Game game,
-                                   GameViewController gameViewController) throws Exception {
-        switch (gameMessage) {
-            case WIN -> endGame(game);
-            case LOST -> newGame();
-        }
-    }
 
     public static void restart() {
 
     }
-}
+
+    public static Game getGame() {
+        return game;
+    }
+
+    public static void saveGame() {
+        Database.setSavedGame(game);
+    }
+
+
+    }

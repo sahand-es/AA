@@ -19,6 +19,10 @@ public class LoginMenu extends Application {
         launch(args);
     }
 
+    public static void startLoginMenu() throws Exception {
+        new LoginMenu().start(Database.getStage());
+    }
+
     @Override
     public void start(Stage stage) throws Exception {
         stage.setMaximized(true);

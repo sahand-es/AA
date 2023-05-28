@@ -91,4 +91,12 @@ public class Game {
     public long getStartTime() {
         return startTime;
     }
+
+    public double getPercentage() {
+        return percentage;
+    }
+
+    public void setStartTime() {
+        this.startTime = System.currentTimeMillis();
+    }
 }

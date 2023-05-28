@@ -7,8 +7,8 @@ module AA {
     requires commons.lang3;
 
     exports model;
-//    exports view;
-//    opens view;
+    exports view.profile;
+    opens view.profile;
     opens model;
     exports view.login;
     opens view.login;

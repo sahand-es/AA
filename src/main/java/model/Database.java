@@ -20,7 +20,11 @@ public class Database {
     private static User currentUser;
 
     private static Game currentGame;
+    private static Game savedGame;
     private static MediaPlayer mainMusic = new MediaPlayer(new Media(new File(DataManager.FIRST_MUSIC_PATH).toURI().toString()));
+
+    private final static User guest;
+
 
     static {
         mainMusic.play();
@@ -30,6 +34,11 @@ public class Database {
         users = DataManager.loadUsers();
     }
 
+    static {
+        guest = new User("guest", "");
+        Database.removeUser(guest);
+        DataManager.saveUsers();
+    }
     public static Object getUsers() {
         return users;
     }
@@ -46,6 +55,14 @@ public class Database {
 
     public static void addUser(User user) {
         users.add(user);
+    }
+    public static void removeUser(User user) {
+        for (User user1 : users) {
+            if (user1.equals(user)){
+                users.remove(user1);
+                return;
+            }
+        }
     }
 
     public static User getCurrentUser() {
@@ -92,4 +109,17 @@ public class Database {
         mediaPlayer.setVolume(0.8);
         mediaPlayer.play();
     }
+
+    public static Game getSavedGame() {
+        return savedGame;
+    }
+
+    public static void setSavedGame(Game savedGame) {
+        Database.savedGame = savedGame;
+    }
+
+    public static User getGuest() {
+        return guest;
+    }
+
 }
